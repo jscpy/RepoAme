@@ -1,22 +1,26 @@
-from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 from repo_ita.models import Articulo
 
-# Create your views here.
+
+@login_required
 def home(request):
     articulos = Articulo.objects.all()
     return render(request, 'home.html', context={'articulos': articulos})
 
+
 def signup(request):
-    return render(request, 'signup.html')
-
-
-def register(request):
-    # import ipdb; ipdb.set_trace()
-    username = request.POST['username']
-    password = request.POST['password']
-    user = User.objects.create_user(username, password)
-    if user:
-        return redirect('/')
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('home')
     else:
-        return redirect('/register')
+        form = UserCreationForm()
+    return render(request, 'signup.html', {'form': form})

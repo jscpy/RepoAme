@@ -19,5 +19,5 @@ from repo_ita.views import home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('repo_ita.urls', namespace='repo_ita')),
+    path('', include('repo_ita.urls', namespace='repo-ita')),
 ]

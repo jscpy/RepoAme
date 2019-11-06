@@ -1,9 +1,9 @@
-{% extends  'index.html' %}
+{% extends  'base.html' %}
+{% load crispy_forms_tags %}
 {% block body %}
-<form action="register" method="POST">
+<form method="POST">
     {% csrf_token %}
-    <input type="text" name="username" id="username">
-    <input type="password" name="password" id="password">
-    <button type="submit">Crear Cuenta</button>
+    {{ form|crispy }}
+    <button class="btn btn-primary" type="submit">Crear Cuenta</button>
 </form>
 {% endblock body %}

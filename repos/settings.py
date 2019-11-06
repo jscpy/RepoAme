@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'repo_ita.apps.RepoItaConfig',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -124,6 +125,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+LOGIN_URL = '/login'
+
 LOGIN_REDIRECT_URL = '/articulos'
 
-LOGOUT_REDIRECT_URL = '/accounts/login/'
+LOGOUT_REDIRECT_URL = '/login'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
