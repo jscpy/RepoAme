@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block body %}
+<h1>Hola Mundo</h1>
+<ul>
+    {% for articulo in articulos %}
+    <li>{{articulo.name}} - {{articulo.description}}</li>
+    {% endfor %}
+</ul>
+
+{% endblock body%}
