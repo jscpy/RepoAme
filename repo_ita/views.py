@@ -26,7 +26,7 @@ def signup(request):
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(request, user)
-            return redirect('home')
+            return redirect('/home')
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
@@ -40,7 +40,7 @@ def create_articulo(request):
             articulo = form.save(commit=False)
             articulo.user = request.user
             articulo.save()
-            return redirect('home')
+            return redirect('/home')
     else:
         form = ArticuloForm()
     return render(request, 'articulo.html', {'form': form})
