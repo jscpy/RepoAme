@@ -6,14 +6,18 @@ from repo_ita.models import Articulo
 from repo_ita.forms import ArticuloForm
 
 
-@login_required
 def home(request):
     return render(request, 'home.html')
 
 
+def search(request):
+    articulos = Articulo.objects.all()
+    return render(request, 'search.html', {'articulos': articulos})
+
+
 @login_required()
 def articulo(request):
-    articulos = Articulo.objects.all()
+    articulos = Articulo.objects.filter(user=request.user)
     return render(request, 'articulo/index.html', {'articulos': articulos})
 
 
@@ -26,7 +30,7 @@ def signup(request):
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(request, user)
-            return redirect('/home')
+            return redirect('/')
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
@@ -40,7 +44,7 @@ def create_articulo(request):
             articulo = form.save(commit=False)
             articulo.user = request.user
             articulo.save()
-            return redirect('/home')
+            return redirect('/')
     else:
         form = ArticuloForm()
-    return render(request, 'articulo.html', {'form': form})
+    return render(request, 'articulo/create.html', {'form': form})
