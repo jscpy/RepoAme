@@ -1,0 +1,33 @@
+body {
+    padding-top: 56px;
+}
+.bg-danger-uaa {
+    color: #9D2449;
+}
+.second-nav {
+    background-color: #13322B;
+}
+.navbar-inverse {
+    background-color: #0C231E;
+}
+.btn-uaa {
+    color: #9D2449;
+    background-color: #FFF;
+    border-color: #9D2449
+}
+
+.btn-uaa.focus,
+.btn-uaa:focus {
+    color: #FFFFFF;
+    background-color: #9D2449;
+    border-color: #9D2449
+}
+
+.btn-uaa.active,
+.btn-uaa:active,
+.btn-uaa:hover,
+.open>.btn-uaa.dropdown-toggle {
+    color: #fff;
+    background-color: #9D2449;
+    border-color: #9D2449;
+}

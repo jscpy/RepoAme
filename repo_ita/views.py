@@ -10,6 +10,7 @@ def home(request):
     return render(request, 'home.html')
 
 
+@login_required()
 def search(request):
     articulos = Articulo.objects.all()
     return render(request, 'search.html', {'articulos': articulos})

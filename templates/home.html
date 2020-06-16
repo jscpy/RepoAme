@@ -5,8 +5,8 @@
 <div class="container h-100">
     <div class="row h-100 align-items-center">
     <div class="col-lg-12">
-        <h1 class="display-4 text-white mt-5 mb-2">Repositorio de IT Acapulco</h1>
-        <p class="lead mb-5 text-white">TODO: Breve descripcion del proyecto</p>
+        <h2 class="text-white mt-2 mb-2">Universidad Americana de Acapulco</h2>
+        <p class="lead mb-2 text-white">Repositorio de Documentos</p>
     </div>
     </div>
 </div>
@@ -16,33 +16,16 @@
 <div class="container">
 
 <div class="row">
-    <div class="col-md-8 mb-5">
-    <h2>Otra descipcion del proyecto</h2>
+    <div class="col-md-12 mb-5 mt-5">
+    <h3>Otra descipcion del proyecto</h3>
     <hr>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A deserunt neque tempore recusandae animi soluta quasi? Asperiores rem dolore eaque vel, porro, soluta unde debitis aliquam laboriosam. Repellat explicabo, maiores!</p>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis optio neque consectetur consequatur magni in nisi, natus beatae quidem quam odit commodi ducimus totam eum, alias, adipisci nesciunt voluptate. Voluptatum.</p>
-    <a class="btn btn-primary btn-lg" href="#">Call to Action &raquo;</a>
-    </div>
-    <div class="col-md-4 mb-5">
-    <h2>Contáctanos</h2>
-    <hr>
-    <address>
-        <strong>Start Bootstrap</strong>
-        <br>3481 Melrose Place
-        <br>Beverly Hills, CA 90210
-        <br>
-    </address>
-    <address>
-        <abbr title="Phone">P:</abbr>
-        (123) 456-7890
-        <br>
-        <abbr title="Email">E:</abbr>
-        <a href="mailto:#">name@example.com</a>
-    </address>
+    <a class="btn btn-uaa btn-lg" href="{% url 'repo_ita:search' %}">Ver todos los documentos &raquo;</a>
     </div>
 </div>
 <!-- /.row -->
-
+{% comment %}
 <div class="row">
     <div class="col-md-4 mb-5">
     <div class="card h-100">
@@ -51,7 +34,7 @@
         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque sequi doloribus.</p>
         </div>
         <div class="card-footer">
-        <a href="#" class="btn btn-primary">Find Out More!</a>
+        <a href="#" class="btn btn-uaa">Find Out More!</a>
         </div>
     </div>
     </div>
@@ -62,7 +45,7 @@
         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque sequi doloribus totam ut praesentium aut.</p>
         </div>
         <div class="card-footer">
-        <a href="#" class="btn btn-primary">Find Out More!</a>
+        <a href="#" class="btn btn-uaa">Find Out More!</a>
         </div>
     </div>
     </div>
@@ -73,20 +56,14 @@
         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
         </div>
         <div class="card-footer">
-        <a href="#" class="btn btn-primary">Find Out More!</a>
+        <a href="#" class="btn btn-uaa">Find Out More!</a>
         </div>
     </div>
     </div>
 </div>
+{% endcomment %}
 <!-- /.row -->
 
 </div>
 <!-- /.container -->
-
-<!-- Footer -->
-<footer class="py-5 bg-dark">
-<div class="container">
-    <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
-</div>
-</footer>
 {% endblock body%}

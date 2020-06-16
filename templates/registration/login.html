@@ -1,13 +1,14 @@
-{% extends  'base.html' %}
+{% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block body %}
 <div class="container">
 <div class="row">
 <div class="col-md-12 py-5 mb-5">
+<img class="img-fluid mb-5" src="http://www.uaa.edu.mx/wp-content/themes/uaa/images/logo.png" alt="Universidad Americana de Acapulco">
 <form method="POST">
     {% csrf_token %}
     {{ form|crispy }}
-    <button class="btn btn-primary" type="submit">Login</button>
+    <button class="btn btn-uaa" type="submit">Entrar</button>
 </form>
 </div>
 </div>
