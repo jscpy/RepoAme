@@ -1,7 +1,9 @@
 db.sqlite3
-__pycache__
+__pycache__/
+repo_ita/migrations/__pycache__
 repo_ita/migrations/__pycache__
 repo_ita/__pycache__
 *.pyc
-docs
+docs/*
+media/*
 .vscode
