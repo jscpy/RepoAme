@@ -1,0 +1,475 @@
+{% extends 'americana/base.html' %}
+{% load static %}
+{% block css %}
+<style>
+  .hero.has-background {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-background {
+    position: absolute;
+    object-fit: cover;
+    object-position: center center;
+    width: 100%;
+    height: 100%;
+  }
+  .hero-background.is-transparent {
+    opacity: 0.6;
+  }
+</style>
+{% endblock css %}
+{% block body %}
+
+<section class="hero is-fullheight is-dark has-background">
+  <div class="hero-head">
+    {% include 'layout/navbar.html' with index_page=1 %}
+  </div>
+  <img class="hero-background is-transparent" src="{% static 'img/BannersOpcionalesArtboard-1.jpg' %}" />
+</section>
+
+<section class="section">
+    <div class="container">
+      <div class="p-4 mb-6">
+        <h1 class="title is-2 has-text-centered has-text-info-dark">¡Conoce nuestra oferta educativa e inscríbete ahora!</h1>
+      </div>
+      <div class="columns is-vcentered">
+        <div class="column">
+          <div class="box has-background-info-dark" >
+            <p class="title has-text-weight-light has-text-centered p-6 has-text-white">Preparatoria</p>
+          </div>
+        </div>
+        <div class="column">
+          <div class="box has-background-danger-dark" >
+            <p class="title has-text-weight-light has-text-centered p-6 has-text-white">Licenciatura</p>
+          </div>
+        </div>
+        <div class="column">
+          <div class="box has-background-success-dark" >
+            <p class="title has-text-weight-light has-text-centered p-6 has-text-white">Maestrías</p>
+          </div>
+        </div>
+        <div class="column">
+          <div class="box has-background-warning-dark">
+            <p class="title has-text-weight-light has-text-centered p-6 has-text-white">Extensión</p>
+          </div>
+        </div>
+      </div>
+  </div>
+</section>
+
+<section class="hero is-light is-medium">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          <p class="title has-text-weight-normal">Nueva modalidad cuatrimestral</p>
+          <p class="title has-text-weight-normal">Terminas tu carrera en 3 años</p>
+          <p class="title has-text-weight-normal">Bajamos nuestros precios, desde</p>
+          <p class="title has-text-weight-normal">$3,500</p>
+        </div>
+        <div class="column">
+          <figure class="image is-640x360">
+            <img src="https://bulma.io/images/placeholders/640x360.png">
+          </figure>
+        </div>
+      </div>
+  </div>
+  </div>
+</section>
+
+<section class="hero is-medium">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          <div class="card is-shadowless">
+            <div class="card-image">
+              <figure class="image">
+                <img src="https://uaa.edu.mx/wp-content/uploads/2021/03/LicenciaturasUNAM-1024x941.png">
+              </figure>
+            </div>
+            <div class="card-content has-text-centered">
+              <button class="button is-info is-rounded is-medium">Ver Detalles</button>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="card is-shadowless">
+            <div class="card-image">
+              <figure class="image">
+                <img src="https://uaa.edu.mx/wp-content/uploads/2021/03/Licenciaturas-ciencias-salud-1024x941.png">
+              </figure>
+            </div>
+            <div class="card-content has-text-centered">
+              <button class="button is-info is-rounded is-medium">Ver Detalles</button>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="card is-shadowless">
+            <div class="card-image">
+              <figure class="image">
+                <img src="https://uaa.edu.mx/wp-content/uploads/2021/03/Licenciaturas-ciencias-admon-1024x941.png">
+              </figure>
+            </div>
+            <div class="card-content has-text-centered">
+              <button class="button is-info is-rounded is-medium">Ver Detalles</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br><br><br>
+      <div class="columns is-centered">
+        <div class="box">
+        <div class="column">
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-16by9">
+                <img src="https://uaa.edu.mx/wp-content/uploads/2021/03/persona-contestando-examen.jpg">
+              </figure>
+            </div>
+          </div>
+          <br>
+          <div class="has-text-centered">
+            <p class="title is-size-2 has-text-info-dark">¿Aún no sabes que estudiar?</p>
+            <button class="button is-danger is-rounded is-medium">Realiza nuestro test de orientación vacacional</button>
+          </div>
+        </div>
+      </div>
+      </div>
+  </div>
+  </div>
+</section>
+
+<section class="hero has-background-info-light is-medium">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          <p class="title is-1 is-spaced has-text-info-dark">¡Inscríbete ahora mismo!</p>
+          <div class="subtitle">
+            <p >No pongas tus sueños en pausa, toma la mejor decisión de tu</p>
+            <p >vida estudiando en la Universidad Americana de Acapulco!</p>
+          </div>
+          <div class="is-flex is-justify-content-center">
+            <figure class="image is-256x256">
+              <img src="https://uaa.edu.mx/wp-content/uploads/2021/03/hand-drawn-arrow-pink-min.png">
+            </figure>
+          </div>
+        </div>
+        <div class="column">
+          <p class="title is-3 has-text-info-dark">Beneficios al estudiar en la Universidad Americana de Acapulco</p>
+          <div class="content is-large">
+            <ul>
+                <li>
+                  <div class="box has-background-info has-text-info-light">Únicos en el Estado incorporados a la UNAM</div>
+                </li>
+                <li>
+                  <div class="box has-background-info has-text-info-light">Nuevas licenciaturas en Ciencias de la Salud y Ciencias Económico Administrativas</div>
+                </li>
+                <li>
+                  <div class="box has-background-info has-text-info-light">Colegiaturas más atractivas y a tu alcance</div>
+                </li>
+                <li>
+                  <div class="box has-background-info has-text-info-light">Certificación del inglés al nivel TOEFL</div>
+                </li>
+                <li>
+                  <div class="box has-background-info has-text-info-light">Seguro de continuidad de estudios (en caso de fallecimiento de tutor (a) la UAA garantiza que el alumno finalice sus estudios con la beca al 100%)la UNAM</div>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-medium">
+  <div class="hero-body">
+    <div class="container">
+      <div class="is-flex is-justify-content-center">
+        <figure class="image is-128x128">
+          <img src="https://uaa.edu.mx/wp-content/uploads/2021/03/cropped-faviconAmericana.png">
+        </figure>
+        <figure class="image is-128x128">
+          <img src="https://uaa.edu.mx/wp-content/uploads/2021/03/siSomosUNAM.png">
+        </figure>
+      </div>
+      <div class="has-text-centered mt-6">
+        <p class="title is-2 is-spaced has-text-info-dark">¿Quieres más información?</p>
+        <p class="subtitle is-4">Envíanos tus datos, te contactaremos en menos de 24 hrs.</p>
+      </div>
+      <br><br>
+      <div class="columns is-centered">
+        <div class="column is-4">
+          <div class="box has-background-info-dark">
+            <div class="field">
+              <label class="label has-text-white has-text-weight-normal is-medium">Nombre completo:</label>
+              <div class="control">
+                <input class="input" type="text">
+              </div>
+            </div>
+            <div class="field">
+              <label class="label has-text-white has-text-weight-normal is-medium">Teléfono Móvil:</label>
+              <div class="control">
+                <input class="input" type="text">
+              </div>
+            </div>
+            <br><br>
+            <div class="field">
+              <label class="label has-text-white has-text-weight-bold is-medium">Al dar clic en "Enviar" estás aceptando nuestro</label>
+              <label class="label has-text-info-light has-text-weight-normal is-medium">Aviso de privacidad</label>
+              <br>
+              <div class="control">
+                <button class="button is-info is-rounded is-medium">Enviar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-light is-medium">
+  <div class="hero-body">
+    <div class="container">
+      <p class="title is-2 is-spaced has-text-info-dark has-text-centered pb-5">Testimonios de estudiantes y egresados</p>
+      <div class="columns">
+        <div class="column">
+          <div class="card p-6">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="content">
+                <p class="has-text-weight-normal">
+                  "Tomen las oportunidades que llegan... eso es lo que vale la pena. Hay una frase que me gusta mucho que es -carpe diem-, es como aviéntate, toma, dale; y creo vale la pena arriesgarse, el sufrir, el desgastarse por tener algo que a ti te guste..."
+                </p>
+              </div>
+              <div class="media">
+                <div class="media-left">
+                  <figure class="image is-64x64">
+                    <img class="is-rounded" src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                  </figure>
+                </div>
+                <div class="media-content">
+                  <p class="title is-4">Lucio Nieto Bautista</p>
+                  <p class="subtitle is-6 has-text-grey">Estudiante de la Facultad de Arquitectura e Ingeniería de la UAA</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="card p-6">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="content">
+                <p class="has-text-weight-normal">
+                  "Tuve la gran fortuna de iniciar mi educacion superior en la Universidad Americana de Acapulco, también fui becaria de excelencia José Francisco Ruis Massieu..."
+                </p>
+              </div>
+              <div class="media">
+                <div class="media-left">
+                  <figure class="image is-64x64">
+                    <img class="is-rounded" src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                  </figure>
+                </div>
+                <div class="media-content">
+                  <p class="title is-4">Artemisa Jaramillo</p>
+                  <p class="subtitle is-6 has-text-grey">Directora y catedrática del programa en Mercadotecnia, Innovación y Tecnología Digital en la Escuela de Negocios de la Universodad Princesa Nourah Bint Albdulrahman Riad</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-medium">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          <p class="title is-1">Mándanos un Whatsapp</p>
+          <p class="title is-1 is-spaced has-text-danger-dark">744 533 7736</p>
+          <p class="subtitle is-size-4 has-text-weight-normal">Síguenos en nuestras redes sociales</p>
+        </div>
+        <div class="column">
+          <figure class="image is-4by3">
+            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-light is-medium">
+  <div class="hero-body">
+    <div class="container">
+      <div class="p-4 mb-6">
+        <h1 class="title has-text-centered">Explora el Repositorio de la Universidad</h1>
+      </div>
+      <div class="columns">
+        <div class="column">
+          <div class="field">
+            <p class="control has-icons-right">
+              <input class="input is-medium" type="text" placeholder="Búsqueda de Recursos de Información">
+              <span class="icon is-small is-right">
+                <i class="fas fa-search"></i>
+              </span>
+            </p>
+          </div>
+        </div>
+        <div class="column">
+          <button class="button is-dark is-medium is-light is-fullwidth">Búsqueda Avanzada</button>
+        </div>
+      </div>
+  </div>
+  </div>
+</section>
+
+<section class="section is-medium">
+  <div class="container">
+    <div class="columns is-multiline is-vcentered">
+      <div class="column is-6">
+        <h1 class="title">
+          Áreas de conocimientos con más recursos
+        </h1>
+        <table class="table is-striped is-fullwidth">
+          <thead>
+            <tr>
+              <th>Área de conocimiento</th>
+              <th><span class="tag is-info">Recursos</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Biologia</td>
+              <td>
+                <span class="tag is-dark">70000</span>
+              </td>
+            </tr>
+            <tr>
+              <td>Ciencias</td>
+              <td><span class="tag is-dark">70000</span></td>
+            </tr>
+            <tr>
+              <td>Medicina</td>
+              <td><span class="tag is-dark">70000</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="column is-6">
+        <h1 class="title">
+          10 Autores más consultados
+        </h1>
+        <table class="table  is-striped is-fullwidth">
+          <thead>
+            <tr>
+              <th>Autor</th>
+              <th>
+                <span class="tag is-info">Visitas</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Juan Perez</td>
+              <td>
+                <span class="tag is-dark">70000</span>
+              </td>
+            </tr>
+            <tr>
+              <td>Jose Perez</td>
+              <td><span class="tag is-dark">70000</span></td>
+            </tr>
+            <tr>
+              <td>Luis Perez</td>
+              <td><span class="tag is-dark">70000</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section is-medium">
+  <div class="container">
+    <h1 class="title has-text-centered">
+      El Repositorio en números
+    </h1>
+    <hr>
+    <nav class="level">
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="title is-1 is-spaced">3,456</p>
+          <p class="heading">Recursos de Información</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="title is-1 is-spaced">123</p>
+          <p class="heading">Consultas</p>
+        </div>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="hero is-info">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-4">
+          <figure class="image">
+            <img src="https://uaa.edu.mx/wp-content/uploads/2021/03/Logo-americana-blanco-300x76.png" alt="Placeholder image">
+          </figure>
+          <br>
+          <p class="title is-4 has-text-info-light has-text-weight-light">Nuestro plan cambia, tu futuro mejora.</p>
+        </div>
+        <div class="column is-3 is-offset-1">
+          <p class="title is-5 has-text-white has-text-weight-bold">MAPA DEL SITIO</p>
+          <hr>
+          <ul class="content">
+            <li><p class="title is-5 has-text-info-light has-text-weight-light">Inicio</p></li>
+            <li><p class="title is-5 has-text-info-light has-text-weight-light">Licenciaturas</p></li>
+            <li><p class="title is-5 has-text-info-light has-text-weight-light">Licenciaturas UNAM</p></li>
+            <li><p class="title is-5 has-text-info-light has-text-weight-light">Ciencias de la Salud</p></li>
+            <li><p class="title is-5 has-text-info-light has-text-weight-light">Económico Administrativas</p></li>
+            <li><p class="title is-5 has-text-info-light has-text-weight-light">Aviso de privacidad</p></li>
+          </ul>
+        </div>
+        <div class="column is-4 is-offset-1">
+          <p class="title is-5 has-text-white has-text-weight-bold">CONECTA CON NOSOTROS</p>
+          <hr>
+          <ul>
+            <li class="title is-5 has-text-info-light has-text-weight-light">(+52) 744 469 1700</li>
+            <li class="title is-5 has-text-info-light has-text-weight-light">(+52) 744 533 7736</li>
+            <li class="title is-5 has-text-info-light has-text-weight-light"> Av. Costera Miguel Alemán 1756, Fracc. Magallanes, 39670 Acapulco de Juárez, México</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer class="footer has-background-info-dark">
+  <div class="content has-text-centered">
+    <p class="title is-5 has-text-info-light has-text-weight-light">
+      Copyright © 2021. Universidad Americana de Acapulco
+    </p>
+  </div>
+</footer>
+{% endblock body%}

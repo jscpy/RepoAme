@@ -1,0 +1,188 @@
+{% extends "americana/base.html" %}
+{% block body %}
+<section class="section">
+<div class="container">
+
+{% if messages %}
+<div class="notification is-primary is-light">
+    <button class="delete"></button>
+    {% for message in messages %}
+    <p>{{message}}</p>
+    {% endfor %}
+</div>
+{% endif %}
+
+<section class="hero is-small has-background-info-light">
+<div class="hero-body">
+    <div class="level">
+    <div class="level-left">
+        <div class="level-item">
+            <h1 class="title">Tablero</h1>
+        </div>
+    </div>
+    <div class="level-right" style="display: none;">
+        <div class="level-item"></div>
+    </div>
+    </div>
+</div>
+</section>
+
+<section class="section">
+<nav class="level">
+<div class="level-item has-text-centered">
+    <div>
+    <p class="heading">Número de Tesis Registradas</p>
+    <p class="title">{{tesis.count}}</p>
+    </div>
+</div>
+<div class="level-item has-text-centered">
+    <div>
+    <p class="heading">Número de Congresos Registrados</p>
+    <p class="title">{{congresos.count}}</p>
+    </div>
+</div>
+<div class="level-item has-text-centered">
+    <div>
+    <p class="heading">Públicaciones por aprobar</p>
+    <p class="title">{{tesis_por_aprobar}}</p>
+    </div>
+</div>
+</nav>
+</section>
+
+<section class="section">
+<p class="title">Tesis Profesionales</p>
+<hr class="has-background-grey-lighter">
+<div class="table-container mt-4">
+<table class="table is-striped is-fullwidth">
+<thead class="has-background-light">
+    <tr>
+        <th>Documento</th>
+        <th>Título</th>
+        <th>Programa</th>
+        <th>Director</th>
+        <th>Co-Director</th>
+        <th>Fecha de Creación</th>
+        <th>Públicado</th>
+        <th>Acciones</th>
+    </tr>
+</thead>
+<tbody>
+    {% for t in tesis  %}
+    <tr>
+        <td>
+            <span class="icon is-large">
+                <a href="{{t.file.url}}" target="_blank">
+                    <i class="fas fa-2x fa-file-pdf"></i>
+                </a>
+            </span>
+        </td>
+        <td>{{t.title}}</td>
+        <td>{{t.program}}</td>
+        <td>{{t.director}}</td>
+        <td>{{t.co_director}}</td>
+        <td>{{t.publish_date}}</td>
+        <td>
+            {% if t.publish %}
+            <span class="icon-text has-text-success">
+                <span class="icon">
+                    <i class="fas fa-check-square"></i>
+                </span>
+            </span>
+            {% else %}
+            <span class="icon-text has-text-danger">
+                <span class="icon">
+                    <i class="fas fa-ban"></i>
+                </span>
+            </span>
+            {% endif %}
+        </td>
+        <td>
+            <div class="field is-grouped">
+                <p class="control">
+                    <div class="icon-text">
+                        <span class="icon has-text-info">
+                            <i class="fas fa-edit"></i>
+                        </span>
+                        <a href="{% url 'repo-ame:tesis-update' t.pk %}">
+                        <span>Editar</span>
+                        </a>
+                    </div>
+                </p>
+                <p class="control">
+                    <div class="icon-text">
+                        <span class="icon has-text-danger">
+                            <i class="fas fa-trash"></i>
+                        </span>
+                        <a href="{% url 'repo-ame:tesis-delete' t.pk %}">
+                        <span>Borrar</span>
+                        </a>
+                    </div>
+                </p>
+            </div>   
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="section">
+    <p class="title">Congresos</p>
+    <hr class="has-background-grey-lighter">
+    <div class="table-container mt-4">
+    <table class="table is-striped is-fullwidth">
+    <thead class="has-background-light">
+        <tr>
+            <th>Generación</th>
+            <th>Nombre del Congreso</th>
+            <th>Artículo</th>
+            <th>Descripción</th>
+            <th>Fecha de Creación</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for c in congresos  %}
+        <tr>
+            <td>{{c.generation}}</td>
+            <td>{{c.conference}}</td>
+            <td>{{c.article}}</td>
+            <td>{{c.description}}</td>
+            <td>{{c.publish_date}}</td>
+            <td>
+                <div class="field is-grouped">
+                    <p class="control">
+                        <div class="icon-text">
+                            <span class="icon has-text-info">
+                                <i class="fas fa-edit"></i>
+                            </span>
+                            <a href="{% url 'repo-ame:congreso-update' c.pk %}">
+                            <span>Editar</span>
+                            </a>
+                        </div>
+                    </p>
+                    <p class="control">
+                        <div class="icon-text">
+                            <span class="icon has-text-danger">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                            <a href="{% url 'repo-ame:congreso-delete' c.pk %}">
+                            <span>Borrar</span>
+                            </a>
+                        </div>
+                    </p>
+                </div>   
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    </div>
+</section>
+
+
+</div>
+</section>
+{% endblock body %}

@@ -1,0 +1,61 @@
+{% extends 'americana/base.html' %}
+{% block body %}
+<section class="section">
+<div class="container">
+<div class="box has-background-light">
+<h1 class="title is-2 is-uppercase has-text-centered">Tesis Profesionales</h1>
+<br><hr class="has-background-grey-lighter">
+<div class="table-container mt-6">
+<table class="table is-striped is-fullwidth">
+<thead class="has-background-light">
+    <tr>
+        <th>Documento</th>
+        <th>Título</th>
+        <th>Autor</th>
+        <th>Programa</th>
+        <th>Director</th>
+        <th>Co-Director</th>
+        <th>Fecha</th>
+        <th>Públicado</th>
+    </tr>
+</thead>
+<tbody class="has-background-light">
+    {% for t in tesis  %}
+    <tr>
+        <td>
+            <span class="icon is-large">
+                <a href="{{t.file.url}}" target="_blank">
+                    <i class="fas fa-2x fa-file-pdf"></i>
+                </a>
+            </span>
+        </td>
+        <td>{{t.title}}</td>
+        <td>{{t.autor.get_full_name}}</td>
+        <td>{{t.program}}</td>
+        <td>{{t.director}}</td>
+        <td>{{t.co_director}}</td>
+        <td>{{t.publish_date}}</td>
+        <td>
+            {% if t.publish %}
+            <span class="icon-text has-text-success">
+                <span class="icon">
+                    <i class="fas fa-check-square"></i>
+                </span>
+            </span>
+            {% else %}
+            <span class="icon-text has-text-danger">
+                <span class="icon">
+                    <i class="fas fa-ban"></i>
+                </span>
+            </span>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+{% endblock %}

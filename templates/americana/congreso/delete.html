@@ -1,0 +1,14 @@
+{% extends "americana/base.html" %}
+{% block body %}
+<section class="hero">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <form method="post" class="box has-background-light">
+                {% csrf_token %}
+                <p class="title is-size-4">¿Estas seguro que desas borrar "{{ object }}"?</p>
+                <input class="button is-danger is-rounded" type="submit" value="Confirmar">
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock body %}

@@ -1,0 +1,107 @@
+{% extends "americana/base.html" %}
+{% load widget_tweaks %}
+{% block body %}
+<section class="section">
+<div class="container">
+<div class="notification is-info is-light">
+  <button class="delete"></button>
+  <p>Es <strong>importante que completes la información que se presenta en el formulario</strong>. Esta información le permitira al administrador verificar tu información y aprobar las publicaciones de tus tesis en el repositorio.</p>
+</div>
+<form class="box" method="post">
+    {% csrf_token %}
+    <h1 class="title">Información del perfil</h1>
+    <br>
+    <div class="field is-horizontal">
+        <div class="field-body">
+            <div class="field">
+                <label class="label">Nombre</label>     
+                <div class="control has-icons-left is-clearfix">
+                    {% render_field user_form.first_name class='input' %}
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                  </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Apellidos</label>       
+                <div class="control has-icons-left is-clearfix">
+                    {% render_field user_form.last_name class='input' %}
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                  </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Correo electronico</label>       
+                <div class="control has-icons-left is-clearfix">
+                    {% render_field user_form.email class='input' %}
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                  </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="field is-horizontal">
+        <div class="field-body">
+            <div class="field">
+                <label class="label">Teléfono</label>
+                <div class="control has-icons-left is-clearfix">
+                    {% render_field profile_form.cellphone class='input' %}
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-phone"></i>
+                  </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Carrera</label>
+                <div class="control has-icons-left is-clearfix">
+                    {% render_field profile_form.career class='input' %}
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-university"></i>
+                  </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Año de Graduación</label>
+                <div class="control has-icons-left is-clearfix">
+                    {% render_field profile_form.year_graduate class='input' %}
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-user-graduate"></i>
+                  </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="field is-horizontal">
+        <div class="field-body">
+            <div class="field">
+                <label class="label">Facebook</label>
+                <div class="control has-icons-left is-clearfix">
+                    {% render_field profile_form.facebook class='input' %}
+                  <span class="icon is-small is-left">
+                    <i class="fab fa-facebook"></i>
+                  </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Twitter</label>
+                <div class="control has-icons-left is-clearfix">
+                    {% render_field profile_form.twitter class='input' %}
+                  <span class="icon is-small is-left">
+                    <i class="fab fa-twitter"></i>
+                  </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="has-background-light">
+    <div class="field">
+        <div class="control">
+          <button class="button is-info" type="submit">Actualizar datos</button>
+        </div>
+    </div>
+</form>
+</div>
+</section>
+{% endblock body %}

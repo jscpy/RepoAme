@@ -18,5 +18,10 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('repo_ita.urls', namespace='repo-ita')),
+    # path('', include('repo_ita.urls', namespace='repo-ita')),
+    path('', include('americana.urls', namespace='repo-ame')),
 ]
+
+admin.site.site_header = 'Administración UAA'
+admin.site.site_title = 'Portal de Administración de la UAA'
+admin.site.index_title = 'Bienveniso al Portal UAA'

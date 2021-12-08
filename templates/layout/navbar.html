@@ -1,46 +1,65 @@
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-inverse navbar-dark navbar-inverse fixed-top">
+{% if index_page %}
+<nav class="navbar is-spaced" role="navigation" aria-label="main navigation">
+{% else %}
+<nav class="navbar is-light is-spaced has-shadow" role="navigation" aria-label="main navigation">
+{% endif %}
 <div class="container">
-    <a class="navbar-brand" href="{% url 'repo-ita:home' %}">Universidad Americana de Acapulco</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-    <ul class="navbar-nav ml-auto">
-        {% if user.is_authenticated %}
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="articulo-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Articulos</a>
-            <div class="dropdown-menu" aria-labelledby="articulo-menu">
-            <a class="dropdown-item" href="{% url 'repo-ita:articulo-create' %}">Nuevo articulo</a>
-            <a class="dropdown-item" href="{% url 'repo-ita:articulos' %}">Ver articulos</a>
+    <div class="navbar-brand">
+      <a class="navbar-item" href="{% url 'repo-ame:home' %}">
+        <img src="https://uaa.edu.mx/wp-content/uploads/2021/03/LOGO-UAA-2.png" width="150" height="30" alt="Universidad Americana de Acapulco">
+      </a>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-ame">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div id="navbar-ame" class="navbar-menu">
+      {% if user.is_authenticated  %}
+        <div class="navbar-start">
+            <a class="navbar-item" href="{% url 'repo-ame:home' %}">Inicio</a>
+            <a class="navbar-item" href="{% url 'repo-ame:tablero' %}">Tablero</a>
+            <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">Tesis</a>
+            <div class="navbar-dropdown is-boxed">
+                <a class="navbar-item" href="{% url 'repo-ame:tesis-create' %}">Nuevo registro</a>
+                <a class="navbar-item" href="{% url 'repo-ame:tesis-list' %}">Ver mis tesis</a>
+                <hr class="navbar-divider">
+                <a class="navbar-item" href="{% url 'repo-ame:tesis' %}">Buscar tesis</a>
             </div>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="evidencias-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Evidencias</a>
-            <div class="dropdown-menu" aria-labelledby="evidencias-menu">
-            <a class="dropdown-item" href="#">Nueva evidencia</a>
-            <a class="dropdown-item" href="#">Ver evidencias</a>
             </div>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" href="{% url 'repo-ita:search' %}">Buscar Articulos</a>
-        </li>
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">Congresos</a>    
+              <div class="navbar-dropdown is-boxed">
+                  <a class="navbar-item" href="{% url 'repo-ame:congreso-create' %}">Nuevo registro</a>
+                  <a class="navbar-item" href="{% url 'repo-ame:congreso-list' %}">Ver mis congresos</a>
+                  <hr class="navbar-divider">
+                  <a class="navbar-item" href="{% url 'repo-ame:congreso' %}">Buscar congresos</a>
+              </div>
+            </div>
+        </div>
         {% endif %}
-        {% if user.is_authenticated %}
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'repo-ita:logout' %}">Cerrar Sesión</a>
-            </li>
-        {% else %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'repo-ita:signup' %}" role="button">Registrarse</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'repo-ita:login' %}" role="button">Login</a>
-            </li>
-        {% endif %}
-    </ul>
+        <div class="navbar-end">
+          {% if user.is_authenticated  %}
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">Hola, {{user.get_full_name|capfirst}}</a>
+            <div class="navbar-dropdown">
+                <a class="navbar-item" href="{% url 'repo-ame:profile-update' %}">Actualizar perfil</a>
+                <hr class="navbar-divider">
+                <a class="navbar-item" href="{% url 'repo-ame:logout' %}">Cerrar sesión</a>
+            </div>
+            </div>
+          {% else %}
+          <div class="navbar-item">
+          <div class="buttons">
+              <a class="button" href="{% url 'repo-ame:signup' %}">
+              <strong>Registrarse</strong>
+              </a>
+              <a class="button is-danger" href="{% url 'repo-ame:login' %}">Iniciar Sesión</a>
+          </div>
+          </div>
+          {% endif %}
+        </div>
     </div>
 </div>
 </nav>
-<div class="second-nav p-4 mb-2 text-white">
-</div>

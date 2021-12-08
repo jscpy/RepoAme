@@ -1,0 +1,33 @@
+{% extends 'americana/base.html' %}
+{% load widget_tweaks %}
+{% block body %}
+<section class="section">
+    <div class="container">
+        <form class="box" method="POST">
+            {% csrf_token %}
+            <div class="field">
+                <label class="label">Nombre de usuario</label>
+                <div class="control">
+                    {% render_field form.username class='input' %}
+                </div>
+                <p class="help">{{form.username.help_text}}</p>
+            </div>
+            <div class="field">
+                <label class="label">Contraseña</label>
+                <div class="control">
+                    {% render_field form.password1 class='input' %}
+                </div>
+                <div class="help">{{form.password1.help_text}}</div>
+            </div>
+            <div class="field">
+                <label class="label">Confirmación de la contraseña</label>
+                <div class="control">
+                    {% render_field form.password2 class='input' %}
+                </div>
+                <div class="help">{{form.password2.help_text}}</div>
+            </div>
+            <button class="button is-info" type="submit">Crear Cuenta</button>
+        </form>
+    </div>
+</section>
+{% endblock body %}

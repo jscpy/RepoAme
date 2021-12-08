@@ -1,16 +1,52 @@
-{% extends 'base.html' %}
-{% load crispy_forms_tags %}
+{% extends 'americana/base.html' %}
+{% load widget_tweaks %}
 {% block body %}
-<div class="container">
-<div class="row">
-<div class="col-md-12 py-5 mb-5">
-<img class="img-fluid mb-5" src="http://www.uaa.edu.mx/wp-content/themes/uaa/images/logo.png" alt="Universidad Americana de Acapulco">
-<form method="POST">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <button class="btn btn-uaa" type="submit">Entrar</button>
-</form>
+<section class="hero is-light is-fullheight">
+<div class="hero-body">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-6-tablet is-4-desktop is-4-widescreen">
+        {% if form.non_field_errors %}
+        <div class="notification is-danger is-light has-text-justified">
+        <button class="delete"></button>
+        {% for error in form.non_field_errors %}
+            <p>{{ error }}</p>
+        {% endfor %}
+        </div>
+        {% endif %}
+        <form class="box" method="POST">
+        {% csrf_token %}
+        <figure class="image">
+            <img src="https://uaa.edu.mx/wp-content/uploads/2021/03/LOGO-UAA-2.png" alt="Universidad Americana de Acapulco">
+        </figure>
+        <br><br>
+          <div class="field">
+            <label for="" class="label">Usuario</label>
+            <div class="control has-icons-left">
+              {% render_field form.username class='input' %}
+              <span class="icon is-small is-left">
+                <i class="fa fa-user"></i>
+              </span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="" class="label">Contraseña</label>
+            <div class="control has-icons-left">
+            {% render_field form.password class='input' %}
+              <span class="icon is-small is-left">
+                <i class="fa fa-lock"></i>
+              </span>
+            </div>
+          </div>
+          <div class="field">
+            <button class="button is-info is-fullwidth" type="submit">
+              Entrar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
-</div>
-</div>
+</section>
 {% endblock body %}

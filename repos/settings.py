@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'repo_ita.apps.RepoItaConfig',
-    'crispy_forms',
+    'widget_tweaks',
+    'django_filters',
+    'americana.apps.AmericanaConfig',
 ]
 
 MIDDLEWARE = [
@@ -127,11 +128,9 @@ STATICFILES_DIRS = [
 
 LOGIN_URL = '/login'
 
-LOGIN_REDIRECT_URL = '/articulos'
+LOGIN_REDIRECT_URL = '/'
 
 LOGOUT_REDIRECT_URL = '/login'
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MEDIA_URL = '/media/'
 

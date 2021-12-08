@@ -1,0 +1,98 @@
+{% extends 'americana/base.html' %}
+{% load widget_tweaks %}
+{% load americana_extras %}
+{% block body %}
+<section class="section">
+<div class="container">
+<div class="box has-background-light">
+<h1 class="title is-2 is-uppercase is- has-text-centered">Congresos</h1>
+<br><hr class="has-background-grey-lighter">
+<form action="">
+<div class="columns">
+    <div class="column">
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">Mostrar</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                <div class="select is-fullwidth">
+                    <select>
+                        <option>10</option>
+                        <option>25</option>
+                        <option>50</option>
+                        <option>100</option>
+                    </select>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">Buscar:</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                <div class="control">
+                    {% render_field filter.form.q class="input" %}
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+<div class="table-container mt-6">
+<table class="table is-striped is-fullwidth">
+<thead class="has-background-light">
+    <tr>
+        <th>Generación</th>
+        <th>Alumno</th>
+        <th>Nombre del Congreso</th>
+        <th>Artículo</th>
+        <th>Descripción</th>
+        <th>Fecha</th>
+    </tr>
+</thead>
+<tbody class="has-background-light">
+    {% for c in congresos  %}
+    <tr>
+        <td>{{c.generation}}</td>
+        <td>{{c.student.get_full_name}}</td>
+        <td>{{c.conference}}</td>
+        <td>{{c.article}}</td>
+        <td>{{c.description}}</td>
+        <td>{{c.publish_date}}</td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+</div>
+<nav class="pagination is-centered" role="navigation" aria-label="pagination">
+    {% if page_obj.has_previous %}  
+    <a href="?page={{ page_obj.previous_page_number }}" class="pagination-previous">Atrás</a>
+    {% endif %}
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}" class="pagination-next">Siguiente</a>
+    {% endif %}
+    <ul class="pagination-list">
+        {% for num_page in page_obj.paginator.page_range %}
+        {% if num_page|to_int == request.GET.page|to_int %}
+        <li>
+            <a class="pagination-link is-current" href="?page={{num_page}}" aria-label="Ir a página {{num_page}}">{{num_page}}</a>
+        </li>
+    {% else %}
+    <li>
+        <a class="pagination-link" href="?page={{num_page}}" aria-label="Ir a página {{num_page}}">{{num_page}}</a>
+    </li>
+    {% endif %}
+    {% endfor %}
+    </ul>
+</nav>
+</div>
+</div>
+</section>
+{% endblock %}
