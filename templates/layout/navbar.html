@@ -1,5 +1,5 @@
 {% if index_page %}
-<nav class="navbar is-spaced" role="navigation" aria-label="main navigation">
+<nav class="navbar is-dark is-spaced" role="navigation" aria-label="main navigation">
 {% else %}
 <nav class="navbar is-light is-spaced has-shadow" role="navigation" aria-label="main navigation">
 {% endif %}
@@ -22,19 +22,17 @@
             <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link">Tesis</a>
             <div class="navbar-dropdown is-boxed">
-                <a class="navbar-item" href="{% url 'repo-ame:tesis-create' %}">Nuevo registro</a>
-                <a class="navbar-item" href="{% url 'repo-ame:tesis-list' %}">Ver mis tesis</a>
+                <a class="navbar-item" href="{% url 'repo-ame:tesis-list' %}">Ver tesis</a>
                 <hr class="navbar-divider">
                 <a class="navbar-item" href="{% url 'repo-ame:tesis' %}">Buscar tesis</a>
             </div>
             </div>
             <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link">Congresos</a>    
+              <a class="navbar-link">Publicaciones</a>    
               <div class="navbar-dropdown is-boxed">
-                  <a class="navbar-item" href="{% url 'repo-ame:congreso-create' %}">Nuevo registro</a>
-                  <a class="navbar-item" href="{% url 'repo-ame:congreso-list' %}">Ver mis congresos</a>
+                  <a class="navbar-item" href="{% url 'repo-ame:publicacion-list' %}">Ver publicaciones</a>
                   <hr class="navbar-divider">
-                  <a class="navbar-item" href="{% url 'repo-ame:congreso' %}">Buscar congresos</a>
+                  <a class="navbar-item" href="{% url 'repo-ame:publicacion' %}">Buscar publicaciones</a>
               </div>
             </div>
         </div>
@@ -42,7 +40,7 @@
         <div class="navbar-end">
           {% if user.is_authenticated  %}
           <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">Hola, {{user.get_full_name|capfirst}}</a>
+            <a class="navbar-link">{{user.username|capfirst}}</a>
             <div class="navbar-dropdown">
                 <a class="navbar-item" href="{% url 'repo-ame:profile-update' %}">Actualizar perfil</a>
                 <hr class="navbar-divider">

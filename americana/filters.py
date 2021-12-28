@@ -1,7 +1,7 @@
 import django_filters
-from django.db.models import Q, query
+from django.db.models import Q
 
-from americana.models import Tesis, Congreso
+from americana.models import Tesis, Publicacion
 
 class TesisFilter(django_filters.FilterSet):
     q = django_filters.CharFilter(method='search')
@@ -17,14 +17,14 @@ class TesisFilter(django_filters.FilterSet):
         )
     
 
-class CongresoFilter(django_filters.FilterSet):
+class PublicacionFilter(django_filters.FilterSet):
     q = django_filters.CharFilter(method='search')
     class Meta:
-        model = Congreso
+        model = Publicacion
         fields = ['q', ]
     
     def search(self, queryset, name, value):
         return queryset.filter(
             Q(student__first_name__icontains=value) | Q(student__last_name__icontains=value)| \
-                Q(generation__icontains=value) |  Q(conference__icontains=value) | Q(article__icontains=value)
+                Q(title__icontains=value) |  Q(conference__icontains=value) | Q(description__icontains=value)
         )

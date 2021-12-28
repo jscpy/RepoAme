@@ -3,37 +3,35 @@
 <section class="section">
 <div class="container">
 <div class="box has-background-light">
-<h1 class="title is-2 is-uppercase has-text-centered">Tesis</h1>
+<h1 class="title is-2 is-uppercase is- has-text-centered">Publicaciones</h1>
 <br><hr class="has-background-grey-lighter">
 <div class="table-container mt-6">
 <table class="table is-striped is-fullwidth">
 <thead class="has-background-light">
     <tr>
-        <th>Documento</th>
-        <th>Título</th>
-        <th>Programa</th>
-        <th>Director</th>
-        <th>Co-Director</th>
-        <th>Fecha de Creación</th>
+        <th>Fecha de Publicación</th>
+        <th>Publicado en</th>
+        <th>Titulo</th>
         <th>Resumen</th>
+        <th>Articulo</th>
+        <th>Fecha de Creación</th>
     </tr>
 </thead>
 <tbody class="has-background-light">
-    {% for t in tesis  %}
+    {% for p in publicaciones  %}
     <tr>
+        <td>{{p.publish_date}}</td>
+        <td>{{p.conference}}</td>
+        <td>{{p.title}}</td>
+        <td>{{p.description|slice:":250"}}</td>
         <td>
             <span class="icon is-large">
-                <a href="{{t.file.url}}" target="_blank">
+                <a href="{{p.file.url}}" target="_blank">
                     <i class="fas fa-2x fa-file-pdf"></i>
                 </a>
             </span>
         </td>
-        <td>{{t.title}}</td>
-        <td>{{t.program}}</td>
-        <td>{{t.director}}</td>
-        <td>{{t.co_director}}</td>
-        <td>{{t.publish_date}}</td>
-        <td>{{t.description|slice:":250"}}</td>
+        <td>{{p.created_at}}</td>
     </tr>
     {% endfor %}
 </tbody>

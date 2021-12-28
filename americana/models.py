@@ -41,8 +41,9 @@ class Tesis(models.Model):
     program = models.CharField(max_length=100, choices=PROGRAMAS, verbose_name='Programa')
     director = models.CharField(max_length=100, verbose_name='Director')
     co_director = models.CharField(max_length=100, verbose_name='Co-director')
-    publish_date = models.DateField(auto_now_add=True, verbose_name='Fecha')
-    publish = models.BooleanField(default=False, verbose_name='Publicado')
+    publish_date = models.DateField(verbose_name='Fecha de Publicacion')
+    description = models.TextField(verbose_name='Resumen')
+    created_at = models.DateField(auto_now_add=True, verbose_name='Fecha de Creación')
     
     def __str__(self):
         return self.title
@@ -53,19 +54,19 @@ class Tesis(models.Model):
         ordering = ('id',)
 
 
-class Congreso(models.Model):
+class Publicacion(models.Model):
     file = models.FileField(
         upload_to=user_directory_path, verbose_name='Documento')
-    generation = models.CharField(max_length=4, verbose_name='Generación')
+    title = models.CharField(max_length=100, verbose_name='Titulo')
     student = models.ForeignKey(User, verbose_name='Alumno', related_name='congreso', on_delete=models.CASCADE)
-    conference = models.CharField(max_length=100, verbose_name='Nombre del Congreso')
-    article = models.TextField(verbose_name='Artículo')
-    description = models.TextField(verbose_name='Descripción')
-    publish_date = models.DateField(auto_now_add=True, verbose_name='Fecha')
+    conference = models.CharField(max_length=100, verbose_name='Publicado en')
+    description = models.TextField(verbose_name='Resumen')
+    publish_date = models.DateField(verbose_name='Fecha de Publicacion')
+    created_at = models.DateField(auto_now_add=True, verbose_name='Fecha de Creación')
 
     class Meta:
-        verbose_name = "Congreso"
-        verbose_name_plural = "Congresos"
+        verbose_name = "Publicacion"
+        verbose_name_plural = "Publicaciones"
         ordering = ('id',)
 
     def __str__(self):

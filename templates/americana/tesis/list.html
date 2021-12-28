@@ -5,9 +5,9 @@
 <section class="section">
 <div class="container">
 <div class="box has-background-light">
-<h1 class="title is-2 is-uppercase has-text-centered">Tesis Profesionales</h1>
+<h1 class="title is-2 is-uppercase has-text-centered">Tesis</h1>
 <br><hr class="has-background-grey-lighter">
-<form action="">
+<form method="get">
 <div class="columns">
     <div class="column">
         <div class="field is-horizontal">
@@ -51,11 +51,11 @@
     <tr>
         <th>Documento</th>
         <th>Título</th>
-        <th>Autor</th>
         <th>Programa</th>
         <th>Director</th>
         <th>Co-Director</th>
-        <th>Fecha</th>
+        <th>Fecha de Creación</th>
+        <th>Resumen</th>
     </tr>
 </thead>
 <tbody class="has-background-light">
@@ -69,11 +69,11 @@
             </span>
         </td>
         <td>{{t.title}}</td>
-        <td>{{t.autor.get_full_name}}</td>
         <td>{{t.program}}</td>
         <td>{{t.director}}</td>
         <td>{{t.co_director}}</td>
         <td>{{t.publish_date}}</td>
+        <td>{{t.description|slice:":250"}}</td>
     </tr>
     {% endfor %}
 </tbody>

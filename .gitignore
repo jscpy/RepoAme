@@ -8,5 +8,4 @@ docs/*
 media/*
 .vscode
 repo_ita/__pycache__/*.pyc
-migrations
 debug.css

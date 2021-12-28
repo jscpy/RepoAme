@@ -37,21 +37,21 @@
 </div>
 <div class="level-item has-text-centered">
     <div>
-    <p class="heading">Número de Congresos Registrados</p>
-    <p class="title">{{congresos.count}}</p>
+    <p class="heading">Número de Publicaciones Registrados</p>
+    <p class="title">{{publicaciones.count}}</p>
     </div>
 </div>
 <div class="level-item has-text-centered">
     <div>
     <p class="heading">Públicaciones por aprobar</p>
-    <p class="title">{{tesis_por_aprobar}}</p>
+    <p class="title">{{tesis_por_aprobar.count}}</p>
     </div>
 </div>
 </nav>
 </section>
 
 <section class="section">
-<p class="title">Tesis Profesionales</p>
+<p class="title">Tesis</p>
 <hr class="has-background-grey-lighter">
 <div class="table-container mt-4">
 <table class="table is-striped is-fullwidth">
@@ -63,8 +63,7 @@
         <th>Director</th>
         <th>Co-Director</th>
         <th>Fecha de Creación</th>
-        <th>Públicado</th>
-        <th>Acciones</th>
+        <th>Resumen</th>
     </tr>
 </thead>
 <tbody>
@@ -82,45 +81,7 @@
         <td>{{t.director}}</td>
         <td>{{t.co_director}}</td>
         <td>{{t.publish_date}}</td>
-        <td>
-            {% if t.publish %}
-            <span class="icon-text has-text-success">
-                <span class="icon">
-                    <i class="fas fa-check-square"></i>
-                </span>
-            </span>
-            {% else %}
-            <span class="icon-text has-text-danger">
-                <span class="icon">
-                    <i class="fas fa-ban"></i>
-                </span>
-            </span>
-            {% endif %}
-        </td>
-        <td>
-            <div class="field is-grouped">
-                <p class="control">
-                    <div class="icon-text">
-                        <span class="icon has-text-info">
-                            <i class="fas fa-edit"></i>
-                        </span>
-                        <a href="{% url 'repo-ame:tesis-update' t.pk %}">
-                        <span>Editar</span>
-                        </a>
-                    </div>
-                </p>
-                <p class="control">
-                    <div class="icon-text">
-                        <span class="icon has-text-danger">
-                            <i class="fas fa-trash"></i>
-                        </span>
-                        <a href="{% url 'repo-ame:tesis-delete' t.pk %}">
-                        <span>Borrar</span>
-                        </a>
-                    </div>
-                </p>
-            </div>   
-        </td>
+        <td>Aqui va el Resumen, solo mostrar 50 caracteres</td>
     </tr>
     {% endfor %}
 </tbody>
@@ -129,51 +90,32 @@
 </section>
 
 <section class="section">
-    <p class="title">Congresos</p>
+    <p class="title">Publicaciones</p>
     <hr class="has-background-grey-lighter">
     <div class="table-container mt-4">
     <table class="table is-striped is-fullwidth">
     <thead class="has-background-light">
         <tr>
-            <th>Generación</th>
-            <th>Nombre del Congreso</th>
-            <th>Artículo</th>
-            <th>Descripción</th>
-            <th>Fecha de Creación</th>
-            <th>Acciones</th>
+            <th>Fecha de Publicación</th>
+            <th>Publicado en</th>
+            <th>Titulo</th>
+            <th>Resumen</th>
+            <th>Articulo</th>
         </tr>
     </thead>
     <tbody>
-        {% for c in congresos  %}
+        {% for p in publicaciones  %}
         <tr>
-            <td>{{c.generation}}</td>
-            <td>{{c.conference}}</td>
-            <td>{{c.article}}</td>
-            <td>{{c.description}}</td>
-            <td>{{c.publish_date}}</td>
+            <td>{{p.publish_date}}</td>
+            <td>{{p.conference}}</td>
+            <td>{{p.article}}</td>
+            <td>{{p.description}}</td>
             <td>
-                <div class="field is-grouped">
-                    <p class="control">
-                        <div class="icon-text">
-                            <span class="icon has-text-info">
-                                <i class="fas fa-edit"></i>
-                            </span>
-                            <a href="{% url 'repo-ame:congreso-update' c.pk %}">
-                            <span>Editar</span>
-                            </a>
-                        </div>
-                    </p>
-                    <p class="control">
-                        <div class="icon-text">
-                            <span class="icon has-text-danger">
-                                <i class="fas fa-trash"></i>
-                            </span>
-                            <a href="{% url 'repo-ame:congreso-delete' c.pk %}">
-                            <span>Borrar</span>
-                            </a>
-                        </div>
-                    </p>
-                </div>   
+                <span class="icon is-large">
+                    <a href="{{p.file.url}}" target="_blank">
+                        <i class="fas fa-2x fa-file-pdf"></i>
+                    </a>
+                </span>
             </td>
         </tr>
         {% endfor %}

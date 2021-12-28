@@ -6,15 +6,13 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic import (
-    TemplateView, ListView, CreateView, UpdateView, DeleteView)
+from django.views.generic import TemplateView, ListView
 
 from django_filters.views import FilterView
 
-from americana.models import Tesis, Congreso
+from americana.models import Tesis, Publicacion
 from americana.forms import UserForm, ProfileForm
-from americana.filters import TesisFilter, CongresoFilter
+from americana.filters import TesisFilter, PublicacionFilter
 
 
 class Home(TemplateView):
@@ -26,15 +24,9 @@ class Tablero(LoginRequiredMixin, TemplateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["tesis_por_aprobar"] = Tesis.objects.filter(
-            autor=self.request.user, publish=False
-        ).count()
-        context["tesis"] = Tesis.objects.filter(
-            autor=self.request.user
-        )
-        context["congresos"] = Congreso.objects.filter(
-            student=self.request.user
-        )
+        context["tesis_por_aprobar"] = Tesis.objects.all()
+        context["tesis"] = Tesis.objects.all()
+        context["publicaciones"] = Publicacion.objects.all()
         return context
 
 
@@ -53,104 +45,27 @@ class TesisListView(LoginRequiredMixin, FilterView, ListView):
     template_name = 'americana/tesis/list.html'
     context_object_name = 'tesis'
     filterset_class = TesisFilter
-    paginate_by = 2
-    
-    def get_queryset(self):
-        return super().get_queryset().filter(
-            publish=True
-        )
+    paginate_by = 10
 
 
 class TesisUserListView(LoginRequiredMixin, ListView):
     model = Tesis
     template_name = "americana/tesis/index.html"
     context_object_name = 'tesis'
-    
-    def get_queryset(self):
-        return super().get_queryset().filter(
-            autor=self.request.user
-        )
 
 
-class TesisCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    model = Tesis
-    template_name = 'americana/tesis/form.html'
-    fields = (
-        'file', 'title', 'program', 'director', 'co_director'
-    )
-    success_url = reverse_lazy('repo-ame:tablero')
-    success_message = "%(title)s fue creado correctamente."
-
-    def form_valid(self, form):
-        tesis = form.save(commit=False)
-        tesis.autor = self.request.user
-        return super().form_valid(form)
-
-
-class TesisUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    model = Tesis
-    template_name = "americana/tesis/form.html"
-    fields = (
-        'file', 'title', 'program', 'director', 'co_director'
-    )
-    success_url = reverse_lazy('repo-ame:tablero')
-    success_message = "%(title)s se ha actualizado correctamente."
-
-
-class TesisDeleteView(LoginRequiredMixin, DeleteView):
-    model = Tesis
-    template_name = 'americana/tesis/delete.html'
-    success_url = reverse_lazy('repo-ame:tablero')
-
-
-class CongresoListView(LoginRequiredMixin, FilterView, ListView):
-    model = Congreso
-    template_name = 'americana/congreso/list.html'
-    context_object_name = 'congresos'
-    filterset_class = CongresoFilter
+class PublicacionListView(LoginRequiredMixin, FilterView, ListView):
+    model = Publicacion
+    template_name = 'americana/publicacion/list.html'
+    context_object_name = 'publicaciones'
+    filterset_class = PublicacionFilter
     paginate_by = 10
 
 
-class CongresoUserListView(ListView):
-    model = Congreso
-    template_name = "americana/congreso/index.html"
-    context_object_name = 'congresos'
-    
-    def get_queryset(self):
-        return super().get_queryset().filter(
-            student=self.request.user
-        )
-
-
-class CongresoCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    model = Congreso
-    template_name = 'americana/congreso/form.html'
-    fields = (
-        'file', 'generation', 'conference', 'article', 'description'
-    )
-    success_url = reverse_lazy('repo-ame:tablero')
-    success_message = "%(conference)s fue creado correctamente."
-    
-    def form_valid(self, form):
-        congreso = form.save(commit=False)
-        congreso.student = self.request.user
-        return super().form_valid(form)
-
-
-class CongresoUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    model = Congreso
-    template_name = 'americana/congreso/form.html'
-    fields = (
-        'file', 'generation', 'conference', 'article', 'description'
-    )
-    success_url = reverse_lazy('repo-ame:tablero')
-    success_message = "%(conference)s se ha actualizado correctamente."
-
-
-class CongresoDeleteView(LoginRequiredMixin, DeleteView):
-    model = Congreso
-    template_name = 'americana/congreso/delete.html'
-    success_url = reverse_lazy('repo-ame:tablero')
+class PublicacionUserListView(ListView):
+    model = Publicacion
+    template_name = "americana/publicacion/index.html"
+    context_object_name = 'publicaciones'
 
 
 def signup(request):

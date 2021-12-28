@@ -5,9 +5,9 @@
 <section class="section">
 <div class="container">
 <div class="box has-background-light">
-<h1 class="title is-2 is-uppercase is- has-text-centered">Congresos</h1>
+<h1 class="title is-2 is-uppercase is- has-text-centered">Publicaciones</h1>
 <br><hr class="has-background-grey-lighter">
-<form action="">
+<form method="get">
 <div class="columns">
     <div class="column">
         <div class="field is-horizontal">
@@ -49,23 +49,29 @@
 <table class="table is-striped is-fullwidth">
 <thead class="has-background-light">
     <tr>
-        <th>Generación</th>
-        <th>Alumno</th>
-        <th>Nombre del Congreso</th>
-        <th>Artículo</th>
-        <th>Descripción</th>
-        <th>Fecha</th>
+        <th>Fecha de Publicación</th>
+        <th>Publicado en</th>
+        <th>Titulo</th>
+        <th>Resumen</th>
+        <th>Articulo</th>
+        <th>Fecha de Creación</th>
     </tr>
 </thead>
 <tbody class="has-background-light">
-    {% for c in congresos  %}
+    {% for p in publicaciones  %}
     <tr>
-        <td>{{c.generation}}</td>
-        <td>{{c.student.get_full_name}}</td>
-        <td>{{c.conference}}</td>
-        <td>{{c.article}}</td>
-        <td>{{c.description}}</td>
-        <td>{{c.publish_date}}</td>
+        <td>{{p.publish_date}}</td>
+        <td>{{p.conference}}</td>
+        <td>{{p.title}}</td>
+        <td>{{p.description|slice:":250"}}</td>
+        <td>
+            <span class="icon is-large">
+                <a href="{{p.file.url}}" target="_blank">
+                    <i class="fas fa-2x fa-file-pdf"></i>
+                </a>
+            </span>
+        </td>
+        <td>{{p.created_at}}</td>
     </tr>
     {% endfor %}
 </tbody>
