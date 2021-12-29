@@ -81,7 +81,7 @@
         <td>{{t.director}}</td>
         <td>{{t.co_director}}</td>
         <td>{{t.publish_date}}</td>
-        <td>Aqui va el Resumen, solo mostrar 50 caracteres</td>
+        <td>{{t.description|slice:":250"}}</td>
     </tr>
     {% endfor %}
 </tbody>
@@ -101,15 +101,16 @@
             <th>Titulo</th>
             <th>Resumen</th>
             <th>Articulo</th>
+            <th>Fecha de Creación</th>
         </tr>
     </thead>
     <tbody>
-        {% for p in publicaciones  %}
+    {% for p in publicaciones  %}
         <tr>
             <td>{{p.publish_date}}</td>
             <td>{{p.conference}}</td>
-            <td>{{p.article}}</td>
-            <td>{{p.description}}</td>
+            <td>{{p.title}}</td>
+            <td>{{p.description|slice:":250"}}</td>
             <td>
                 <span class="icon is-large">
                     <a href="{{p.file.url}}" target="_blank">
@@ -117,8 +118,9 @@
                     </a>
                 </span>
             </td>
+            <td>{{p.created_at}}</td>
         </tr>
-        {% endfor %}
+    {% endfor %}
     </tbody>
     </table>
     </div>
