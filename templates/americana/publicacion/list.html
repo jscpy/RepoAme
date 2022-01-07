@@ -1,12 +1,13 @@
 {% extends 'americana/base.html' %}
-{% load widget_tweaks %}
-{% load americana_extras %}
 {% block body %}
 <section class="section">
 <div class="container">
 <div class="box has-background-light">
-<h1 class="title is-2 is-uppercase is- has-text-centered">Publicaciones</h1>
+<h1 class="title is-2 is-uppercase has-text-centered">Publicaciones</h1>
 <br><hr class="has-background-grey-lighter">
+{% if not publicaciones %}
+<fieldset disabled>
+{% endif %}
 <form method="get">
 <div class="columns">
     <div class="column">
@@ -17,7 +18,11 @@
             <div class="field-body">
                 <div class="field">
                 <div class="select is-fullwidth">
-                    <select>
+                    <select name="paginate_by"
+                        hx-get="{% url 'repo-ame:publicacion' %}"
+                        hx-target="#results"
+                        hx-push-url="true"
+                    >
                         <option>10</option>
                         <option>25</option>
                         <option>50</option>
@@ -36,7 +41,12 @@
             <div class="field-body">
                 <div class="field">
                 <div class="control">
-                    {% render_field filter.form.q class="input" %}
+                    <input type="text" class="input" name="q" placeholder="Buscar por palabra clave"
+                        hx-get="{% url 'repo-ame:publicacion' %}"
+                        hx-target="#results"
+                        hx-trigger="keyup changed delay:500ms"
+                        hx-push-url="true"
+                    >
                 </div>
                 </div>
             </div>
@@ -44,60 +54,12 @@
     </div>
 </div>
 </form>
-
-<div class="table-container mt-6">
-<table class="table is-striped is-fullwidth">
-<thead class="has-background-light">
-    <tr>
-        <th>Fecha de Publicación</th>
-        <th>Publicado en</th>
-        <th>Titulo</th>
-        <th>Resumen</th>
-        <th>Articulo</th>
-        <th>Fecha de Creación</th>
-    </tr>
-</thead>
-<tbody class="has-background-light">
-    {% for p in publicaciones  %}
-    <tr>
-        <td>{{p.publish_date}}</td>
-        <td>{{p.conference}}</td>
-        <td>{{p.title}}</td>
-        <td>{{p.description|slice:":250"}}</td>
-        <td>
-            <span class="icon is-large">
-                <a href="{{p.file.url}}" target="_blank">
-                    <i class="fas fa-2x fa-file-pdf"></i>
-                </a>
-            </span>
-        </td>
-        <td>{{p.created_at}}</td>
-    </tr>
-    {% endfor %}
-</tbody>
-</table>
+{% if not publicaciones %}
+</fieldset>
+{% endif %}
+<div id="results">
+    {% include "americana/publicacion/partials/table.html" with publicaciones=publicaciones %}
 </div>
-<nav class="pagination is-centered" role="navigation" aria-label="pagination">
-    {% if page_obj.has_previous %}  
-    <a href="?page={{ page_obj.previous_page_number }}" class="pagination-previous">Atrás</a>
-    {% endif %}
-    {% if page_obj.has_next %}
-    <a href="?page={{ page_obj.next_page_number }}" class="pagination-next">Siguiente</a>
-    {% endif %}
-    <ul class="pagination-list">
-        {% for num_page in page_obj.paginator.page_range %}
-        {% if num_page|to_int == request.GET.page|to_int %}
-        <li>
-            <a class="pagination-link is-current" href="?page={{num_page}}" aria-label="Ir a página {{num_page}}">{{num_page}}</a>
-        </li>
-    {% else %}
-    <li>
-        <a class="pagination-link" href="?page={{num_page}}" aria-label="Ir a página {{num_page}}">{{num_page}}</a>
-    </li>
-    {% endif %}
-    {% endfor %}
-    </ul>
-</nav>
 </div>
 </div>
 </section>

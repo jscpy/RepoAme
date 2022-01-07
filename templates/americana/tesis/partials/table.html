@@ -1,0 +1,57 @@
+<div class="table-container mt-6">
+<table class="table is-striped is-fullwidth">
+<thead class="has-background-light">
+    <tr>
+        <th>Documento</th>
+        <th>Título</th>
+        <th>Programa</th>
+        <th>Director</th>
+        <th>Co-Director</th>
+        <th>Fecha de Creación</th>
+        <th>Resumen</th>
+    </tr>
+</thead>
+<tbody class="has-background-light">
+    {% for t in tesis  %}
+    <tr>
+        <td>
+            <span class="icon is-large">
+                <a href="{{t.file.url}}" target="_blank">
+                    <i class="fas fa-2x fa-file-pdf"></i>
+                </a>
+            </span>
+        </td>
+        <td>{{t.title}}</td>
+        <td>{{t.program}}</td>
+        <td>{{t.director}}</td>
+        <td>{{t.co_director}}</td>
+        <td>{{t.publish_date}}</td>
+        <td>{{t.description|slice:":250"}}</td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+</div>
+{% if tesis %}
+<nav class="pagination is-right" role="navigation" aria-label="pagination" hx-target="#results" hx-push-url="true">
+    {% if tesis.has_previous %}  
+    <a hx-get="?page={{ tesis.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" href="?page={{ tesis.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="pagination-previous button is-link is-outlined">Atrás</a>
+    {% endif %}
+    {% if tesis.has_next %}
+    <a hx-get="?page={{ tesis.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" href="?page={{ tesis.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="pagination-next button is-link is-outlined">Siguiente</a>
+    {% endif %}
+    <ul class="pagination-list">
+    {% for number in tesis.paginator.page_range %}
+        {% ifequal number tesis.number %}
+        <li>
+            <a hx-get="?page={{number}}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" href="?page={{number}}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="pagination-link is-current" aria-label="Ir a página {{number}}">{{number}}</a>
+        </li>
+        {% else %}
+        <li>
+            <a hx-get="?page={{number}}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" href="?page={{number}}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="pagination-link" aria-label="Ir a página {{number}}">{{number}}</a>
+        </li>
+        {% endifequal %}
+    {% endfor %}
+    </ul>
+</nav>
+{% endif %}

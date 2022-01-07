@@ -14,13 +14,14 @@
     {% block css %}{% endblock css %}
 </head>
 <body>
-  {% url 'repo-ame:home' as url %}
+    {% url 'repo-ame:home' as url %}
     {% if not request.path == url %}
-      {% include 'layout/navbar.html' with index_page=0 %}
+      {% include 'layout/navbar.html' with theme='is-light has-shadow' %}
     {% endif %}
-    {% include 'layout/header.html' %}
     {% block body %}{% endblock body %}
-    {% block js %}{% endblock js %}
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/htmx.min.js' %}"></script>
+    <script src="{% static 'js/hyperscript.min.js' %}"></script>
+    {% block js %}{% endblock js %}
 </body>
 </html>

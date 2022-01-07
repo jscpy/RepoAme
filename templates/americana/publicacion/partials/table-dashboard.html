@@ -1,0 +1,92 @@
+<div class="table-container mt-4">
+<table class="table is-striped is-fullwidth">
+<thead class="has-background-light">
+<tr>
+    <th>Fecha de Publicación</th>
+    <th>Publicado en</th>
+    <th>Titulo</th>
+    <th>Resumen</th>
+    <th>Articulo</th>
+    <th>Código de Publicación</th>
+    <th>Acciones</th>
+</tr>
+</thead>
+<tbody>
+{% for p in publicaciones  %}
+<tr>
+    <td>{{p.publish_date}}</td>
+    <td>{{p.conference}}</td>
+    <td>{{p.title}}</td>
+    <td>
+        <button class="button is-link" 
+            hx-get="{% url 'repo-ame:publicacion-modal-summary' p.id %}"
+            hx-target="#modal-summary"
+            _="on every htmx:afterOnLoad add .is-active to .modal"
+        >
+            <span class="icon">
+                <i class="far fa-file-alt"></i>
+            </span>
+            <span>Ver más</span>
+            </button>
+    </td>
+    <td>
+        <span class="icon is-large">
+            <a href="{{p.file.url}}" target="_blank">
+                <i class="fas fa-2x fa-file-pdf"></i>
+            </a>
+        </span>
+    </td>
+    <td>
+        <p class="is-family-code">{{p.issn}}</p>
+        <p class="is-family-code">{{p.isbn}}</p>
+    </td>
+    <td>
+        <div class="field is-grouped">
+            <p class="control">
+                <div class="icon-text">
+                    <a href="{% url 'repo-ame:publicacion-update' p.pk %}">
+                    <span class="icon has-text-info">
+                        <i class="fas fa-edit"></i>
+                    </span>
+                    </a>
+                </div>
+            </p>
+            <p class="control">
+                <div class="icon-text">
+                    <a href="{% url 'repo-ame:publicacion-delete' p.pk %}">
+                    <span class="icon has-text-danger">
+                        <i class="fas fa-trash"></i>
+                    </span>
+                    </a>
+                </div>
+            </p>
+        </div>
+    </td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+{% if publicaciones %}
+<nav class="pagination is-right" role="navigation" aria-label="pagination" hx-target="#results-publicacion" hx-push-url="true">
+    {% if publicaciones.has_previous %}  
+    <a hx-get="?page={{ publicaciones.previous_page_number }}&model=publicacion" href="?page={{ publicaciones.previous_page_number }}&model=publicacion" class="pagination-previous button is-link is-outlined">Atrás</a>
+    {% endif %}
+    {% if publicaciones.has_next %}
+    <a hx-get="?page={{ publicaciones.next_page_number }}&model=publicacion" href="?page={{ publicaciones.next_page_number }}&model=publicacion" class="pagination-next button is-link is-outlined">Siguiente</a>
+    {% endif %}
+    <ul class="pagination-list">
+    {% for number in publicaciones.paginator.page_range %}
+        {% ifequal number publicaciones.number %}
+        <li>
+            <a hx-get="?page={{number}}&model=publicacion" href="?page={{number}}&model=publicacion" class="pagination-link is-current" aria-label="Ir a página {{number}}">{{number}}</a>
+        </li>
+        {% else %}
+        <li>
+            <a hx-get="?page={{number}}&model=publicacion" href="?page={{number}}&model=publicacion" class="pagination-link" aria-label="Ir a página {{number}}">{{number}}</a>
+        </li>
+        {% endifequal %}
+    {% endfor %}
+    </ul>
+</nav>
+{% endif %}

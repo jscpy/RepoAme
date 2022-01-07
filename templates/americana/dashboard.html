@@ -2,7 +2,6 @@
 {% block body %}
 <section class="section">
 <div class="container">
-
 {% if messages %}
 <div class="notification is-primary is-light">
     <button class="delete"></button>
@@ -11,122 +10,57 @@
     {% endfor %}
 </div>
 {% endif %}
-
-<section class="hero is-small has-background-info-light">
-<div class="hero-body">
-    <div class="level">
-    <div class="level-left">
-        <div class="level-item">
-            <h1 class="title">Tablero</h1>
+<section class="hero is-light is-small">
+    <div class="hero-body">
+        <div class="has-text-centered">
+            <p class="title">Tablero</p>
         </div>
     </div>
-    <div class="level-right" style="display: none;">
-        <div class="level-item"></div>
-    </div>
-    </div>
-</div>
 </section>
-
 <section class="section">
 <nav class="level">
-<div class="level-item has-text-centered">
-    <div>
-    <p class="heading">Número de Tesis Registradas</p>
-    <p class="title">{{tesis.count}}</p>
+    <div class="level-left">
+        <div class="level-item">
+            <p class="title">Tesis</p>
+        </div>
     </div>
-</div>
-<div class="level-item has-text-centered">
-    <div>
-    <p class="heading">Número de Publicaciones Registrados</p>
-    <p class="title">{{publicaciones.count}}</p>
+    <div class="level-right">
+        <div class="level-item">
+            <p class="subtitle">Registradas: {{tesis_count}}</p>    
+        </div>
     </div>
-</div>
-<div class="level-item has-text-centered">
-    <div>
-    <p class="heading">Públicaciones por aprobar</p>
-    <p class="title">{{tesis_por_aprobar.count}}</p>
-    </div>
-</div>
 </nav>
-</section>
-
-<section class="section">
-<p class="title">Tesis</p>
 <hr class="has-background-grey-lighter">
-<div class="table-container mt-4">
-<table class="table is-striped is-fullwidth">
-<thead class="has-background-light">
-    <tr>
-        <th>Documento</th>
-        <th>Título</th>
-        <th>Programa</th>
-        <th>Director</th>
-        <th>Co-Director</th>
-        <th>Fecha de Creación</th>
-        <th>Resumen</th>
-    </tr>
-</thead>
-<tbody>
-    {% for t in tesis  %}
-    <tr>
-        <td>
-            <span class="icon is-large">
-                <a href="{{t.file.url}}" target="_blank">
-                    <i class="fas fa-2x fa-file-pdf"></i>
-                </a>
-            </span>
-        </td>
-        <td>{{t.title}}</td>
-        <td>{{t.program}}</td>
-        <td>{{t.director}}</td>
-        <td>{{t.co_director}}</td>
-        <td>{{t.publish_date}}</td>
-        <td>{{t.description|slice:":250"}}</td>
-    </tr>
-    {% endfor %}
-</tbody>
-</table>
+<div id="results-tesis">
+    {% include "americana/tesis/partials/table-dashboard.html" with tesis=tesis %}
 </div>
 </section>
-
 <section class="section">
-    <p class="title">Publicaciones</p>
-    <hr class="has-background-grey-lighter">
-    <div class="table-container mt-4">
-    <table class="table is-striped is-fullwidth">
-    <thead class="has-background-light">
-        <tr>
-            <th>Fecha de Publicación</th>
-            <th>Publicado en</th>
-            <th>Titulo</th>
-            <th>Resumen</th>
-            <th>Articulo</th>
-            <th>Fecha de Creación</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for p in publicaciones  %}
-        <tr>
-            <td>{{p.publish_date}}</td>
-            <td>{{p.conference}}</td>
-            <td>{{p.title}}</td>
-            <td>{{p.description|slice:":250"}}</td>
-            <td>
-                <span class="icon is-large">
-                    <a href="{{p.file.url}}" target="_blank">
-                        <i class="fas fa-2x fa-file-pdf"></i>
-                    </a>
-                </span>
-            </td>
-            <td>{{p.created_at}}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-    </table>
+<nav class="level">
+    <div class="level-left">
+        <div class="level-item">
+            <p class="title">Publicaciones</p>
+        </div>
     </div>
-</section>
-
-
+    <div class="level-right">
+        <div class="level-item">
+            <p class="subtitle">Registradas: {{publicaciones_count}}</p>    
+        </div>
+    </div>
+</nav>
+<hr class="has-background-grey-lighter">
+<div id="results-publicacion">
+    {% include "americana/publicacion/partials/table-dashboard.html" with publicaciones=publicaciones %}
 </div>
+</section>
+</div>
+<div id="modal-summary"></div>
 </section>
 {% endblock body %}
+{% block js %}
+<script>
+    document.body.addEventListener('htmx:configRequest', (event) => {
+      event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    })
+</script>
+{% endblock js %}

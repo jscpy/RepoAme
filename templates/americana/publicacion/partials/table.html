@@ -1,0 +1,55 @@
+<div class="table-container mt-6">
+<table class="table is-striped is-fullwidth">
+<thead class="has-background-light">
+    <tr>
+        <th>Fecha de Publicación</th>
+        <th>Publicado en</th>
+        <th>Titulo</th>
+        <th>Resumen</th>
+        <th>Articulo</th>
+        <th>Fecha de Creación</th>
+    </tr>
+</thead>
+<tbody class="has-background-light">
+    {% for p in publicaciones  %}
+    <tr>
+        <td>{{p.publish_date}}</td>
+        <td>{{p.conference}}</td>
+        <td>{{p.title}}</td>
+        <td>{{p.description}}</td>
+        <td>
+            <span class="icon is-large">
+                <a href="{{p.file.url}}" target="_blank">
+                    <i class="fas fa-2x fa-file-pdf"></i>
+                </a>
+            </span>
+        </td>
+        <td>{{p.created_at}}</td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+</div>
+{% if publicaciones %}
+<nav class="pagination is-right" role="navigation" aria-label="pagination" hx-target="#results" hx-push-url="true">
+    {% if publicaciones.has_previous %}  
+    <a hx-get="?page={{ publicaciones.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" href="?page={{ publicaciones.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="pagination-previous button is-link is-outlined">Atrás</a>
+    {% endif %}
+    {% if publicaciones.has_next %}
+    <a hx-get="?page={{ publicaciones.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" href="?page={{ publicaciones.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="pagination-next button is-link is-outlined">Siguiente</a>
+    {% endif %}
+    <ul class="pagination-list">
+    {% for number in publicaciones.paginator.page_range %}
+        {% ifequal number publicaciones.number %}
+        <li>
+            <a hx-get="?page={{number}}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" href="?page={{number}}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="pagination-link is-current" aria-label="Ir a página {{number}}">{{number}}</a>
+        </li>
+        {% else %}
+        <li>
+            <a hx-get="?page={{number}}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" href="?page={{number}}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="pagination-link" aria-label="Ir a página {{number}}">{{number}}</a>
+        </li>
+        {% endifequal %}
+    {% endfor %}
+    </ul>
+</nav>
+{% endif %}

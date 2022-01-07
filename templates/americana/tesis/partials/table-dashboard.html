@@ -1,0 +1,91 @@
+<div class="table-container mt-4">
+<table class="table is-striped is-fullwidth">
+<thead class="has-background-light">
+    <tr>
+        <th>Documento</th>
+        <th>Título</th>
+        <th>Programa</th>
+        <th>Director</th>
+        <th>Co-Director</th>
+        <th>Fecha de Creación</th>
+        <th>Resumen</th>
+        <th>Acciones</th>
+    </tr>
+</thead>
+<tbody id="results-tesis">
+    {% for t in tesis  %}
+    <tr>
+        <td>
+            <span class="icon is-large">
+                <a href="{{t.file.url}}" target="_blank">
+                    <i class="fas fa-2x fa-file-pdf"></i>
+                </a>
+            </span>
+        </td>
+        <td>{{t.title}}</td>
+        <td>{{t.program}}</td>
+        <td>{{t.director}}</td>
+        <td>{{t.co_director}}</td>
+        <td>{{t.publish_date}}</td>
+        <td>
+            <button class="button is-link"
+                hx-get="{% url 'repo-ame:tesis-modal-summary' t.id %}"
+                hx-target="#modal-summary"
+                _="on every htmx:afterOnLoad add .is-active to .modal"
+            >
+                <span class="icon">
+                    <i class="far fa-file-alt"></i>
+                </span>
+                <span>Ver más</span>
+                </button>
+        </td>
+        <td>
+            <div class="field is-grouped">
+                <p class="control">
+                    <div class="icon-text">
+                        <a href="{% url 'repo-ame:tesis-update' t.pk %}">
+                        <span class="icon has-text-info">
+                            <i class="fas fa-edit"></i>
+                        </span>
+                        </a>
+                    </div>
+                </p>
+                <p class="control">
+                    <div class="icon-text">
+                        <a href="{% url 'repo-ame:tesis-delete' t.pk %}">
+                        <span class="icon has-text-danger">
+                            <i class="fas fa-trash"></i>
+                        </span>
+                        </a>
+                    </div>
+                </p>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+</div>
+{% if tesis %}
+<nav class="pagination is-right" role="navigation" aria-label="pagination" hx-target="#results-tesis" hx-push-url="true">
+    {% if tesis.has_previous %}  
+    <a hx-get="?page={{ tesis.previous_page_number }}&model=tesis" href="?page={{ tesis.previous_page_number }}&model=tesis" class="pagination-previous button is-link is-outlined">Atrás</a>
+    {% endif %}
+    {% if tesis.has_next %}
+    <a hx-get="?page={{ tesis.next_page_number }}&model=tesis" href="?page={{ tesis.next_page_number }}&model=tesis" class="pagination-next button is-link is-outlined">Siguiente</a>
+    {% endif %}
+    <ul class="pagination-list">
+    {% for number in tesis.paginator.page_range %}
+        {% ifequal number tesis.number %}
+        <li>
+            <a hx-get="?page={{number}}&model=tesis" href="?page={{number}}&model=tesis" class="pagination-link is-current" aria-label="Ir a página {{number}}">{{number}}</a>
+        </li>
+        {% else %}
+        <li>
+            <a hx-get="?page={{number}}&model=tesis" href="?page={{number}}&model=tesis" class="pagination-link" aria-label="Ir a página {{number}}">{{number}}</a>
+        </li>
+        {% endifequal %}
+    {% endfor %}
+    </ul>
+</nav>
+{% endif %}
