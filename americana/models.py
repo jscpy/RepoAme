@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.fields import BLANK_CHOICE_DASH
 
 class Tesis(models.Model):
     
@@ -7,7 +8,7 @@ class Tesis(models.Model):
         ('Doctorado', 'Doctorado',),
     )
     
-    file = models.FileField(upload_to='docs/tesis/', verbose_name='Documento')
+    file = models.FileField(upload_to='docs/tesis/', verbose_name='Documento', max_length=200)
     title = models.CharField(max_length=100, verbose_name='Titulo')
     autor = models.CharField(max_length=100, verbose_name='Autor')
     program = models.CharField(max_length=100, choices=PROGRAMAS, verbose_name='Programa')
@@ -27,13 +28,13 @@ class Tesis(models.Model):
 
 
 class Publicacion(models.Model):
-    file = models.FileField(upload_to='docs/publicaciones/', verbose_name='Documento')
+    file = models.FileField(upload_to='docs/publicaciones/', verbose_name='Documento', max_length=200)
     title = models.CharField(max_length=100, verbose_name='Titulo')
     autor = models.CharField(max_length=100, verbose_name='Autor')
     conference = models.CharField(max_length=100, verbose_name='Publicado en')
     description = models.TextField(verbose_name='Resumen')
-    isbn = models.CharField(max_length=20, verbose_name='ISBN', default='')
-    issn = models.CharField(max_length=20, verbose_name='ISSN', default='')
+    isbn = models.CharField(max_length=20, verbose_name='ISBN', default='', null=True, blank=True)
+    issn = models.CharField(max_length=20, verbose_name='ISSN', default='', null=True, blank=True)
     publish_date = models.DateField(verbose_name='Fecha de Publicacion')
     created_at = models.DateField(auto_now_add=True, verbose_name='Fecha de Creación')
 
