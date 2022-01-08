@@ -26,7 +26,18 @@
         <td>{{t.director}}</td>
         <td>{{t.co_director}}</td>
         <td>{{t.publish_date}}</td>
-        <td>{{t.description|slice:":250"}}</td>
+        <td>
+            <button class="button is-link"
+                hx-get="{% url 'repo-ame:tesis-modal-summary' t.id %}"
+                hx-target="#modal-summary"
+                _="on every htmx:afterOnLoad add .is-active to .modal"
+            >
+                <span class="icon">
+                    <i class="far fa-file-alt"></i>
+                </span>
+                <span>Ver más</span>
+                </button>
+        </td>
     </tr>
     {% endfor %}
 </tbody>
