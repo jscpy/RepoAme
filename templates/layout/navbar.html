@@ -13,32 +13,16 @@
 </div>
 <div id="navbar-ame" class="navbar-menu">
   <div class="navbar-start">
-      <a class="navbar-item" href="{% url 'repo-ame:home' %}">Inicio</a>
-      {% if user.is_authenticated %}
-      <a class="navbar-item" href="{% url 'repo-ame:tablero' %}">Tablero</a>
-      {% endif %}
-      <a class="navbar-item" href="{% url 'repo-ame:tesis' %}">Tesis</a>
-      {% comment %}
       <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">Tesis</a>
+        <a class="navbar-link">Menú</a>
         <div class="navbar-dropdown is-boxed">
-          <a class="navbar-item" href="{% url 'repo-ame:tesis-list' %}">Ver tesis</a>
-          <hr class="navbar-divider">
-          <a class="navbar-item" href="{% url 'repo-ame:tesis' %}">Buscar tesis</a>
+          {% if user.is_authenticated %}
+          <a class="navbar-item" href="{% url 'repo-ame:tablero' %}">Tablero</a>
+          {% endif %}
+          <a class="navbar-item" href="{% url 'repo-ame:tesis' %}">Tesis</a>
+          <a class="navbar-item" href="{% url 'repo-ame:publicacion' %}">Publicaciones</a>
         </div>
       </div>
-      {% endcomment %}
-      <a class="navbar-item" href="{% url 'repo-ame:publicacion' %}">Publicaciones</a>
-      {% comment %}
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">Publicaciones</a>    
-        <div class="navbar-dropdown is-boxed">
-          <a class="navbar-item" href="{% url 'repo-ame:publicacion-list' %}">Ver publicaciones</a>
-          <hr class="navbar-divider">
-          <a class="navbar-item" href="{% url 'repo-ame:publicacion' %}">Buscar publicaciones</a>
-        </div>
-      </div>
-      {% endcomment %}
   </div>
   <div class="navbar-end">
     {% if user.is_authenticated  %}
