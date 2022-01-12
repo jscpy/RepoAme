@@ -14,10 +14,7 @@
     {% block css %}{% endblock css %}
 </head>
 <body>
-    {% url 'repo-ame:home' as url %}
-    {% if not request.path == url %}
-      {% include 'layout/navbar.html' with theme='is-light has-shadow' %}
-    {% endif %}
+    {% include 'layout/navbar.html' with theme='is-light has-shadow' %}
     {% block body %}{% endblock body %}
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/htmx.min.js' %}"></script>
