@@ -1,0 +1,55 @@
+{% extends 'americana/base.html' %}
+{% load static %}
+{% block body %}
+
+<nav class="navbar is-warning is-spaced">
+    <div class="container">
+      <div id="navMenu" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item">
+            <p class="is-title">Campus Virtual</p>
+        </a>
+        </div>
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="button is-dark">Enlace</a>
+              <a class="button is-link">Botón</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</nav>
+
+<section class="hero is-large is-dark has-background">
+    <img alt="Banner Acapulco" class="hero-background is-transparent" src="{% static 'img/banner_3.jpeg' %}" />
+    <div class="hero-body">
+      <div class="container">
+        <p class="title is-spaced has-text-weight-normal has-text-justified">El Repositorio Institucional de la UAA permite integrar, publicar y consultar los contenidos académicos que genera y resguarda la Universidad</p>
+        <p class="subtitle">
+            <div class="field has-addons">
+                <div class="control is-expanded">
+                  <input class="input" type="text" placeholder="Buscar un Repositorio">
+                </div>
+                <div class="control">
+                  <a class="button is-info">
+                    Buscar
+                  </a>
+                </div>
+            </div>
+        </p>
+        <p class="subtitle">
+            2,797,121 recursos digitales incorporados hasta el momento
+        </p>
+      </div>
+    </div>
+</section>
+
+<section class="hero is-link is-large">
+<div class="hero-body">
+
+</div>
+</section>
+
+{% endblock body %}

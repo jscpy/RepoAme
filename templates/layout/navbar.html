@@ -1,9 +1,10 @@
 {% load static %}
-<nav class="navbar {{theme}} is-spaced" role="navigation" aria-label="main navigation">
+{% comment %}
+<nav class="navbar is-light is-spaced has-shadow" role="navigation" aria-label="main navigation">
 <div class="container">
 <div class="navbar-brand">
   <a class="navbar-item" href="{% url 'repo-ame:home' %}">
-    <img src="{% static 'img/LOGO-UAA-2.png' %}" width="150" height="30" alt="Universidad Americana de Acapulco">
+    <img src="{% static 'img/logoUAAMedium.png' %}" width="280" height="90" alt="Universidad Americana de Acapulco">
   </a>
   <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-ame">
     <span aria-hidden="true"></span>
@@ -24,6 +25,7 @@
         </div>
       </div>
   </div>
+  
   <div class="navbar-end">
     {% if user.is_authenticated  %}
     <div class="navbar-item has-dropdown is-hoverable">
@@ -37,7 +39,7 @@
     {% else %}
     <div class="navbar-item">
     <div class="buttons">
-        <a class="button is-danger" href="{% url 'repo-ame:login' %}">Iniciar Sesión</a>
+        <a class="button is-outlined" href="{% url 'repo-ame:login' %}">Iniciar Sesión</a>
     </div>
     </div>
     {% endif %}
@@ -45,3 +47,20 @@
 </div>
 </div>
 </nav>
+{% endcomment %}
+<section class="section has-background-light">
+  <nav class="level">
+    <div class="level-left">
+        <p class="level-item has-text-centered">
+        <a href="{% url 'repo-ame:home' %}">
+          <img src="{% static 'img/logoUAAMedium.png' %}" style="height: 60px;" alt="Universidad Americana de Acapulco">
+        </a>
+        </p>
+    </div>
+    <div class="level-right">
+    <p class="level-item">
+        <a class="button is-info is-outlined" href="{% url 'repo-ame:login' %}">Iniciar Sesión</a>
+    </p>
+    </div>
+  </nav>
+</section>

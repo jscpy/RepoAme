@@ -6,10 +6,10 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.views.decorators.http import require_http_methods
 from django.core.paginator import Paginator
 from django.views import View
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.views.generic import TemplateView,  UpdateView, DeleteView
 
-from americana.models import Tesis, Publicacion
+from americana.models import Tesis, Publicacion, AREAS
 
 
 class Home(TemplateView):
@@ -22,10 +22,10 @@ class Tablero(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         paginate_by = request.GET.get('paginate_by', self.paginate_by)
-        
+
         tesis_list = Tesis.objects.all()
         publicacion_list = Publicacion.objects.all()
-        
+
         tesis_paginator = Paginator(tesis_list, paginate_by)
         publicacion_paginator = Paginator(publicacion_list, paginate_by)
 
@@ -49,7 +49,7 @@ class Tablero(LoginRequiredMixin, View):
                 'tesis_count': Tesis.objects.all().count(),
                 'publicaciones_count': Publicacion.objects.all().count()
             }
-        
+
         return render(request, self.template_name, context)
 
 
@@ -67,7 +67,7 @@ class TesisListView(View):
     model = Tesis
     template_name = 'americana/tesis/list.html'
     paginate_by = 10
-    
+
     def get(self, request, *args, **kwargs):
         if request.htmx:
             self.template_name = 'americana/tesis/partials/table.html'
@@ -77,7 +77,7 @@ class TesisListView(View):
             )
         else:
             tesis_list = self.model.objects.all()
-        
+
         paginate_by = request.GET.get('paginate_by', self.paginate_by)
         paginator = Paginator(tesis_list, paginate_by)
         page_number = request.GET.get('page', 1)
@@ -108,7 +108,7 @@ class PublicacionListView(View):
     model = Publicacion
     template_name = 'americana/publicacion/list.html'
     paginate_by = 10
-    
+
     def get(self, request, *args, **kwargs):
         if request.htmx:
             self.template_name = 'americana/publicacion/partials/table.html'
@@ -118,7 +118,7 @@ class PublicacionListView(View):
             )
         else:
             publicaciones_list = self.model.objects.all()
-        
+
         paginate_by = request.GET.get('paginate_by', self.paginate_by)
         paginator = Paginator(publicaciones_list, paginate_by)
         page_number = request.GET.get('page', 1)
@@ -156,6 +156,7 @@ def publicacion_modal_summary(request, pk):
         request, template_name, context
     )
 
+
 @require_http_methods(['GET'])
 def tesis_modal_summary(request, pk):
     template_name = 'americana/tesis/partials/modal.html'
@@ -165,3 +166,44 @@ def tesis_modal_summary(request, pk):
     return render(
         request, template_name, context
     )
+
+
+def new_index(request):
+    context = {}
+    context['publicaciones'] = Publicacion.objects.all()[:10]
+    context['areas'] = [{'key': area[0], 'value': area[1]} for area in AREAS]
+    context['anios'] = Publicacion.objects.values('publish_date')\
+        .annotate(count=Count('id')).values('publish_date', 'count').order_by('publish_date')
+    context['autores'] = Publicacion.objects.values('autor')[1:7]
+    return render(request, 'index.html', context)
+
+
+def banner(request):
+    return render(request, 'banner.html')
+
+
+def filter_by_id(request, pk):
+    context = {}
+    context['publicaciones'] = Publicacion.objects.filter(pk=pk)
+    context['tesis'] = Tesis.objects.filter(pk=pk)
+    return render(request, 'filter.html', context)
+
+
+def filter_by_autor(request, autor):
+    context = {}
+    context['publicaciones'] = Publicacion.objects.filter(autor=autor)
+    context['tesis'] = Tesis.objects.filter(autor=autor)
+    return render(request, 'filter.html', context)
+
+
+def filter_by_area(request, area):
+    context = {}
+    context['publicaciones'] = Publicacion.objects.filter(area=area)
+    context['tesis'] = Tesis.objects.filter(area=area)
+    return render(request, 'filter.html', context)
+
+
+def filter_by_year(request, year):
+    context = {}
+    context['publicaciones'] = Publicacion.objects.filter(publish_date__year=year)
+    return render(request, 'filter.html', context)

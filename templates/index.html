@@ -1,0 +1,80 @@
+{% extends 'americana/base.html' %}
+{% load static %}
+{% block body %}
+<section class="section">
+<nav class="breadcrumb" aria-label="breadcrumbs">
+    <ul>
+        <li class="is-active">
+            <span class="icon is-small">
+                <i class="fas fa-home" aria-hidden="true"></i>
+            </span>
+            <a href="#" aria-current="page">Inicio</a>
+        </li>
+        
+    </ul>
+</nav>
+<div class="columns">
+<div class="column is-9">
+    <p class="title">Repositorio Digial de la Universidad Americana de Acapulco</p>
+    <hr class="has-background-gray" />
+    <figure class="image is-2by1">
+        <img src="{% static 'img/banner_4.jpg' %}">
+    </figure>
+    <br/>
+    <p class="subtitle is-size-3 mt-4">Añadido Recientemente</p>
+    <hr class="has-background-gray" />
+    <div class="list has-hoverable-list-items has-overflow-ellipsis">
+    {% for publicacion in publicaciones %}
+    <div class="list-item">
+        <div class="list-item-content">
+            <div class="list-item-title">
+                <a href="{% url 'repo-ame:filter-by-id' publicacion.id %}">
+                    {{publicacion.format_publish}}
+                </a>
+            </div>
+            <div class="list-item-description">{{publicacion.description}}</div>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+</div>
+<div class="column is-3">
+    <div class="field has-addons">
+        <div class="control is-expanded">
+            <input class="input" type="text" placeholder="Encontrar repositorio">
+        </div>
+        <div class="control">
+            <button class="button is-info">
+                <span class="icon is-small">
+                    <i class="fas fa-search"></i>
+                </span>
+            </button>
+        </div>
+    </div>
+    <nav class="panel is-info">
+        <p class="panel-heading">Programas</p>
+        <a class="panel-block">Maestria</a>
+        <a class="panel-block">Doctorado</a>
+    </nav>
+    <nav class="panel is-info">
+        <p class="panel-heading">Autor</p>
+        {% for autor in autores  %}
+        <a href="{% url 'repo-ame:filter-by-autor' autor.autor %}" class="panel-block">{{autor.autor}}</a>
+        {% endfor %}
+    </nav>
+    <nav class="panel is-info">
+        <p class="panel-heading">Area</p>
+        {% for area in areas %}
+        <a href="{% url 'repo-ame:filter-by-area' area.value %}" class="panel-block">{{area.value}}</a>
+        {% endfor %}
+    </nav>
+    <nav class="panel is-info">
+        <p class="panel-heading">Año</p>
+        {% for anio in anios %}
+        <a href="{% url 'repo-ame:filter-by-year' anio.publish_date.year %}" class="panel-block">{{anio.publish_date.year}}</a>
+        {% endfor %}
+    </nav>
+</div>
+</div>
+</section>
+{% endblock body%}

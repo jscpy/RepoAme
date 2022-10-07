@@ -11,5 +11,5 @@ class TesisModelAdmin(admin.ModelAdmin):
 class PublicacionAdmin(admin.ModelAdmin):
     list_display = (
         'title', 'autor', 'conference', 'description',
-        'isbn', 'issn', 'publish_date'
+        'area', 'isbn', 'issn', 'publish_date'
     )
