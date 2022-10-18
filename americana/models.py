@@ -46,6 +46,8 @@ class Tesis(models.Model):
     slug = models.SlugField()
 
     class Meta:
+        verbose_name = 'Tesis'
+        verbose_name_plural = 'Tesis'
         ordering = ('-id', )
 
     def save(self, *args, **kwargs):

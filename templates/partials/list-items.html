@@ -24,7 +24,7 @@
         </div>
         <div class="list-item-content">
             <div class="list-item-title">
-                <a href="#">
+                <a href="{{obj.file.url}}">
                     {{obj.format_publish}}
                 </a>
                 <p class="subtitle is-6 has-text-grey">{{obj.autor.get_full_name}}</p>
@@ -32,12 +32,12 @@
             <div class="list-item-description">{{obj.description}}</div>
         </div>
         <div class="list-item-controls">
-            <button class="button is-link is-light">
+            <a class="button is-link is-light" href="{{obj.file.url}}" target="_blank">
                 <span class="icon is-small has-text-link">
                   <i class="fas fa-download"></i>
                 </span>
                 <span>Descargar</span>
-            </button>
+            </a>
         </div>
     </div>
     {% empty %}

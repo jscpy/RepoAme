@@ -1,5 +1,6 @@
 from django.contrib import admin
-from americana.models import Tesis, Publicacion
+from americana.models import Tesis, Publicacion, Constancia
+
 
 @admin.register(Tesis)
 class TesisModelAdmin(admin.ModelAdmin):
@@ -7,9 +8,17 @@ class TesisModelAdmin(admin.ModelAdmin):
         'title', 'autor', 'program', 'publish_date'
     )
 
+
 @admin.register(Publicacion)
 class PublicacionAdmin(admin.ModelAdmin):
     list_display = (
         'title', 'autor', 'conference', 'description',
         'area', 'isbn', 'issn', 'publish_date'
+    )
+
+
+@admin.register(Constancia)
+class ConstanciaAdmin(admin.ModelAdmin):
+    list_display = (
+        'title', 'autor', 'description', 'area', 'publish_date'
     )
