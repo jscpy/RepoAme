@@ -26,13 +26,26 @@
     <div class="list has-hoverable-list-items has-overflow-ellipsis">
     {% for publicacion in publicaciones %}
     <div class="list-item">
-        <div class="list-item-content">
+        <div class="list-item-image">
+            <span class="icon is-large has-text-danger">
+                <i class="fas fa-2x fa-file-pdf"></i>
+            </span>
+        </div>
+        <div class="list-item-content">            
             <div class="list-item-title">
-                <a href="{% url 'repo-ame:filter-by-id' publicacion.id %}">
+                <a href="{{publicacion.file.url}}" target="_blank">
                     {{publicacion.format_publish}}
                 </a>
             </div>
             <div class="list-item-description">{{publicacion.description}}</div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="list-item">
+        <div class="list-item-content">
+            <div class="list-item-title">
+                <p class="title is-size-5">Sin Registros</p>
+            </div>
         </div>
     </div>
     {% endfor %}
@@ -53,28 +66,48 @@
     </div>
     <nav class="panel is-info">
         <p class="panel-heading">Programas</p>
-        <a class="panel-block">Maestria</a>
-        <a class="panel-block">Doctorado</a>
+        <a href="{% url 'repo-ame:search' %}?tipo=tesis&programa=Maestria" class="panel-block">Maestria</a>
+        <a href="{% url 'repo-ame:search' %}?tipo=tesis&programa=Doctorado" class="panel-block">Doctorado</a>
     </nav>
     <nav class="panel is-info">
         <p class="panel-heading">Autor</p>
-        {% for autor in autores  %}
-        <a href="{% url 'repo-ame:filter-by-autor' autor.autor %}" class="panel-block">{{autor.autor}}</a>
+        {% for autor in autores %}
+        <a href="{% url 'repo-ame:search' %}?autor={{autor.slug}}" class="panel-block">{{autor.get_full_name}}</a>
+        {% empty %}
+        <p class="panel-block">Sin autores registrados</p>
         {% endfor %}
     </nav>
     <nav class="panel is-info">
         <p class="panel-heading">Area</p>
         {% for area in areas %}
-        <a href="{% url 'repo-ame:filter-by-area' area.value %}" class="panel-block">{{area.value}}</a>
+        <a href="{% url 'repo-ame:search' %}?area={{area.slug}}" class="panel-block">{{area.name}}</a>
+        {% empty %}
+        <p class="panel-block">Sin areas registradas</p>
         {% endfor %}
     </nav>
     <nav class="panel is-info">
         <p class="panel-heading">Año</p>
         {% for anio in anios %}
-        <a href="{% url 'repo-ame:filter-by-year' anio.publish_date.year %}" class="panel-block">{{anio.publish_date.year}}</a>
+        <a href="{% url 'repo-ame:search' %}?anio={{anio.publish_date.year}}" class="panel-block">{{anio.publish_date.year}}</a>
+        {% empty %}
+        <p class="panel-block">Sin años registrados</p>
         {% endfor %}
     </nav>
 </div>
 </div>
 </section>
+
+{% include 'layout/gallery.html' %}
+
 {% endblock body%}
+
+{% block js %}
+<script>
+    bulmaCarousel.attach('#carousel-demo', {
+        slidesToScroll: 1,
+        slidesToShow: 3,
+        infinite: true,
+        pagination: false
+    });
+</script>
+{% endblock js %}

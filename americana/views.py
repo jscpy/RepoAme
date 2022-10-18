@@ -9,7 +9,7 @@ from django.views import View
 from django.db.models import Q, Count
 from django.views.generic import TemplateView,  UpdateView, DeleteView
 
-from americana.models import Tesis, Publicacion, AREAS
+from americana.models import Constancia, Tesis, Publicacion, Area, Autor
 
 
 class Home(TemplateView):
@@ -73,7 +73,7 @@ class TesisListView(View):
             self.template_name = 'americana/tesis/partials/table.html'
             q = request.GET.get('q', '')
             tesis_list = self.model.objects.filter(
-                Q(title__icontains=q) | Q(description__icontains=q) 
+                Q(title__icontains=q) | Q(description__icontains=q)
             )
         else:
             tesis_list = self.model.objects.all()
@@ -114,7 +114,7 @@ class PublicacionListView(View):
             self.template_name = 'americana/publicacion/partials/table.html'
             q = request.GET.get('q', '')
             publicaciones_list = self.model.objects.filter(
-                Q(title__icontains=q) | Q(description__icontains=q) 
+                Q(title__icontains=q) | Q(description__icontains=q)
             )
         else:
             publicaciones_list = self.model.objects.all()
@@ -168,42 +168,53 @@ def tesis_modal_summary(request, pk):
     )
 
 
-def new_index(request):
+def index(request):
     context = {}
     context['publicaciones'] = Publicacion.objects.all()[:10]
-    context['areas'] = [{'key': area[0], 'value': area[1]} for area in AREAS]
+    context['areas'] = Area.objects.all()
     context['anios'] = Publicacion.objects.values('publish_date')\
-        .annotate(count=Count('id')).values('publish_date', 'count').order_by('publish_date')
-    context['autores'] = Publicacion.objects.values('autor')[1:7]
+        .annotate(count=Count('id')).values('publish_date', 'count').order_by('-count')[:3]
+    context['autores'] = Autor.objects.all().exclude(id=1)
     return render(request, 'index.html', context)
 
 
-def banner(request):
-    return render(request, 'banner.html')
-
-
-def filter_by_id(request, pk):
+def search(request):
+    print(request.GET)
     context = {}
-    context['publicaciones'] = Publicacion.objects.filter(pk=pk)
-    context['tesis'] = Tesis.objects.filter(pk=pk)
-    return render(request, 'filter.html', context)
+    tipo = request.GET.get('tipo', 'publicaciones')
+    paginate_by = request.GET.get('paginate_by', 10)
+    params = {key: data for key, data in request.GET.items()}
+    models = {
+        'tesis': Tesis,
+        'constancias': Constancia,
+        'publicaciones': Publicacion
+    }
 
+    if tipo == 'tesis' and params.get('programa', ''):
+        qs = Tesis.objects.filter(
+            program=params.get('programa')
+        )
+    else:
+        qs = models[tipo].objects.filter(
+            Q(autor__slug=params.get('autor', '')) |
+            Q(area__slug=params.get('area', '')) |
+            Q(publish_date__year=params.get('anio', 1970))
+        )
 
-def filter_by_autor(request, autor):
-    context = {}
-    context['publicaciones'] = Publicacion.objects.filter(autor=autor)
-    context['tesis'] = Tesis.objects.filter(autor=autor)
-    return render(request, 'filter.html', context)
+    if request.GET.get('q', ''):
+        q = request.GET.get('q', '')
+        qs = qs.filter(Q(title__icontains=q) | Q(description__icontains=q))
 
+    paginator = Paginator(qs, paginate_by)
+    page_number = request.GET.get('page', 1)
 
-def filter_by_area(request, area):
-    context = {}
-    context['publicaciones'] = Publicacion.objects.filter(area=area)
-    context['tesis'] = Tesis.objects.filter(area=area)
-    return render(request, 'filter.html', context)
+    if request.htmx:
+        template_name = 'partials/list-items.html'
+    else:
+        template_name = 'filter.html'
 
-
-def filter_by_year(request, year):
-    context = {}
-    context['publicaciones'] = Publicacion.objects.filter(publish_date__year=year)
-    return render(request, 'filter.html', context)
+    context['obj_list'] = paginator.get_page(page_number)
+    b_key = list(params.keys())[0]
+    context['breadcrumb_key'] = 'Año' if 'anio' in b_key else b_key
+    context['breadcrumb_value'] = ' '.join(list(params.values())[0].split('-'))
+    return render(request, template_name, context)

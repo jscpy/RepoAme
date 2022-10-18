@@ -2,29 +2,85 @@
 {% load static %}
 {% block body %}
 <section class="section">
-<div class="columns is-multiline">
-{% for publicacion in publicaciones %}
-<div class="column is-4">
-<div class="card">
-<div class="card-content">
-    <div class="media">
-        <div class="media-content">
-            <p class="title is-4">{{publicacion.title}}</p>
-            <p class="subtitle is-6">{{publicacion.autor}}</p>
+<nav class="breadcrumb" aria-label="breadcrumbs">
+    <ul>
+        <li>
+            <span class="icon is-small">
+                <i class="fas fa-home" aria-hidden="true"></i>
+            </span>
+            <a href="{% url 'repo-ame:home' %}" aria-current="page">Inicio</a>
+        </li>
+        <li><a href="#">{{breadcrumb_key|title}}</a></li>
+        <li class="is-active"><a href="#">{{breadcrumb_value|title}}</a></li>
+    </ul>
+</nav>
+<!-- Filtros -->
+<form method="get" class="box">
+<div class="columns">
+<div class="column">
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="label">Mostrar:</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+            <div class="select is-fullwidth">
+                <select name="paginate_by"
+                hx-get="{% url 'repo-ame:search' %}?{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
+                hx-target="#list-results">
+                    <option>10</option>
+                    <option>25</option>
+                    <option>50</option>
+                    <option>100</option>
+                </select>
+            </div>
+            </div>
         </div>
     </div>
-    <div class="content has-text-justified">
-        {{publicacion.description}}
+</div>
+<div class="column">
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="label">Tipo:</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+            <div class="select is-fullwidth">
+                <select name="tipo"
+                hx-get="{% url 'repo-ame:search' %}?{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
+                hx-target="#list-results">
+                    <option value="publicaciones">Publicaciones</option>
+                    <option value="tesis">Tesis</option>
+                    <option value="constancias">Constancias</option>
+                </select>
+            </div>
+            </div>
+        </div>
     </div>
-    <div class="tag is-link is-light is-rounded">{{publicacion.area}}</div>
-    <div class="tag is-info is-light is-rounded">{{publicacion.conference}}</div>
 </div>
-<footer class="card-footer">
-    <a href="#" class="card-footer-item">Descargar</a>
-</footer>
+<div class="column">
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="label">Buscar:</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+            <div class="control">
+                <input type="text" class="input" name="q" placeholder="Buscar por palabra clave"
+                hx-get="{% url 'repo-ame:search' %}?{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
+                hx-target="#list-results"
+                hx-trigger="keyup changed delay:500ms">
+            </div>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
-{% endfor %}
+</form>
+
+<div id="list-results">
+{% include 'partials/list-items.html' with obj_list=obj_list %}
 </div>
+
 </section>
 {% endblock body %}

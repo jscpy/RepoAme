@@ -1,0 +1,52 @@
+<!-- Paginacion -->
+{% if obj_list %}
+<nav class="pagination is-rounded" role="navigation" aria-label="pagination" hx-target="#list-results">
+    {% if obj_list.has_previous %}  
+    <a hx-get="?page={{ obj_list.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" href="?page={{ obj_list.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="button is-outlined is-link pagination-previous">Atrás</a>
+    {% endif %}
+    {% if obj_list.has_next %}
+    <a hx-get="?page={{ obj_list.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" href="?page={{ obj_list.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="button is-outlined is-link pagination-next">Siguiente</a>
+    {% endif %}
+    <ul class="pagination-list">
+        <li>Página {{obj_list.number}} de {{obj_list.paginator.num_pages}} </li>
+    </ul>
+</nav>
+{% endif %}
+
+<!-- Lista de Resultados -->
+<div class="list has-hoverable-list-items has-visible-pointer-controls">
+    {% for obj in obj_list %}
+    <div class="list-item box">
+        <div class="list-item-image">
+            <span class="icon is-large has-text-danger">
+                <i class="fas fa-2x fa-file-pdf"></i>
+            </span>
+        </div>
+        <div class="list-item-content">
+            <div class="list-item-title">
+                <a href="#">
+                    {{obj.format_publish}}
+                </a>
+                <p class="subtitle is-6 has-text-grey">{{obj.autor.get_full_name}}</p>
+            </div>
+            <div class="list-item-description">{{obj.description}}</div>
+        </div>
+        <div class="list-item-controls">
+            <button class="button is-link is-light">
+                <span class="icon is-small has-text-link">
+                  <i class="fas fa-download"></i>
+                </span>
+                <span>Descargar</span>
+            </button>
+        </div>
+    </div>
+    {% empty %}
+    <div class="list-item has-text-centered">
+        <div class="list-item-content">
+            <div class="list-item-title">
+                <p class="title is-3 has-text-weight-light">Sin Registros</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>

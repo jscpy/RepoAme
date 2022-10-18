@@ -1,11 +1,11 @@
 {% extends 'americana/base.html' %}
-{% load widget_tweaks %}
+{% load static widget_tweaks %}
 {% block body %}
-<section class="hero is-light is-fullheight">
+<section class="hero is-fullheight">
 <div class="hero-body">
   <div class="container">
     <div class="columns is-centered">
-      <div class="column is-6-tablet is-4-desktop is-4-widescreen">
+      <div class="column is-6-tablet is-6-desktop is-6-widescreen">
         {% if form.non_field_errors %}
         <div class="notification is-danger is-light has-text-justified">
         <button class="delete"></button>
@@ -17,7 +17,7 @@
         <form class="box" method="POST">
         {% csrf_token %}
         <figure class="image">
-            <img src="https://uaa.edu.mx/wp-content/uploads/2021/03/LOGO-UAA-2.png" alt="Universidad Americana de Acapulco">
+            <img src="{% static 'img/logoUAAMedium.png' %}" alt="Universidad Americana de Acapulco">
         </figure>
         <br><br>
           <div class="field">
