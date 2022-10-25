@@ -31,7 +31,7 @@ class Command(BaseCommand):
             data = {
                 'file': fake.file_name(extension='pdf', category='office'),
                 'title': f'Publicacion {i}', 'autor': autor_random,
-                'area': area_random, 'conference': 'Acapulco',
+                'area': area_random, 'conference': fake.city(),
                 'description': fake.text(), 'isbn': fake.isbn13(),
                 'publish_date': fecha_random
             }
@@ -64,8 +64,8 @@ class Command(BaseCommand):
             data = {
                 'file': fake.file_name(extension='pdf', category='office'),
                 'title': f'Constancia {i}', 'autor': autor_random,
-                'area': area_random, 'description': fake.text(),
-                'publish_date': fecha_random
+                'director': fake.name(), 'conference': fake.city(),
+                'area': area_random, 'publish_date': fecha_random
             }
 
             Constancia.objects.create(**data)

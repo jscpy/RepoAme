@@ -20,5 +20,6 @@ class PublicacionAdmin(admin.ModelAdmin):
 @admin.register(Constancia)
 class ConstanciaAdmin(admin.ModelAdmin):
     list_display = (
-        'title', 'autor', 'description', 'area', 'publish_date'
+        'title', 'autor', 'area', 'director',
+        'conference', 'publish_date'
     )
