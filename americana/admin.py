@@ -1,5 +1,5 @@
 from django.contrib import admin
-from americana.models import Tesis, Publicacion, Constancia
+from americana.models import Tesis, Publicacion, Constancia, Area
 
 
 @admin.register(Tesis)
@@ -22,4 +22,12 @@ class ConstanciaAdmin(admin.ModelAdmin):
     list_display = (
         'title', 'autor', 'area', 'director',
         'conference', 'publish_date'
+    )
+
+
+@admin.register(Area)
+class AreaAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('name',)}
+    list_display = (
+        'name', 'slug',
     )
