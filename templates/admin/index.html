@@ -1,0 +1,18 @@
+{% extends "admin/index.html" %}
+{% load static i18n %}
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/custom.css'%}">
+{% endblock %}
+
+{% block content %}
+<figure class="image is-2by1">
+    <img src="{% static 'img/banner_4.jpg' %}">
+</figure>
+{{ block.super }}
+{% endblock content %}
+
+
+{% block footer %}
+{% include 'layout/footer.html' %}
+{% endblock footer %}

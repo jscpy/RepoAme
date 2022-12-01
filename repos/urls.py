@@ -21,6 +21,6 @@ urlpatterns = [
     path('', include('americana.urls', namespace='repo-ame')),
 ]
 
-admin.site.site_header = 'Administración UAA'
-admin.site.site_title = 'Portal de Administración de la UAA'
-admin.site.index_title = 'Bienveniso al Portal UAA'
+admin.site.site_header = 'Universidad Americana de Acapulco'
+admin.site.site_title = 'Portal de Administración'
+admin.site.index_title = 'Sitio de Administración del Repositorio'
